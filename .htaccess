@@ -1,0 +1,31 @@
+RewriteEngine on
+
+# Remove www.
+	RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+	RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
+
+# Prevent rewriting URIs that exist: (-d directory -f files)
+	RewriteCond %{SCRIPT_FILENAME} !-d
+	RewriteCond %{SCRIPT_FILENAME} !-f
+	
+# Remove index.php for CodeIgniter love
+	RewriteCond $1 !^(index\.php|assets|robots\.txt|favicon.ico)
+	RewriteRule ^(.*)$ index.php/$1 [QSA,L]
+
+# Fix IE
+	Header set X-UA-Compatible "IE=Edge"
+	<FilesMatch "\.(js|css|gif|png|jpe?g|pdf|xml|oga|ogg|m4a|ogv|mp4|m4v|webm|svg|svgz|eot|ttf|otf|woff|ico|webp|appcache|manifest|htc|crx|xpi|safariextz|vcf)$" >
+		Header unset X-UA-Compatible
+	</FilesMatch>
+
+# Compress some files before sending them
+	<ifmodule mod_deflate.c>
+		AddOutputFilterByType DEFLATE text/text text/html text/plain text/xml text/css application/xml application/xhtml+xml application/rss+xml application/x-javascript application/javascript
+	</ifmodule>
+
+# Cacheable content
+	<IfModule !mod_win32.c>
+	AddType image/x-icon .ico
+	ExpiresByType image/x-icon "access plus 30 days"
+	ExpiresByType image/ico "access plus 30 days"
+	</IfModule>
