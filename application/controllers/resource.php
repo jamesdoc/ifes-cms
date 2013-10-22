@@ -16,6 +16,9 @@ class Resource extends MY_Controller {
 
 		$data['view'] = 'edit_form';
 		$data['title'] = 'IFES CMS: Edit';
+		
+		$data['javascript'] = array('bootstrap-datetimepicker.min');
+		$data['css'] = array('bootstrap-datetimepicker.min');
 
 		$this->load->view('container', $data);
 	}

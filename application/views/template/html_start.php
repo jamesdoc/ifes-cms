@@ -11,7 +11,9 @@
 
   <!-- Bootstrap core CSS -->
   <link href="<?=site_url('assets/css/bootstrap.css')?>" rel="stylesheet">
-    <link href="<?=site_url('assets/css/datepicker.css')?>" rel="stylesheet">
+  <? if(isset($css)): foreach($css as $inject): ?>
+  <link href="<?=site_url('assets/css/' . $inject . '.css')?>" rel="stylesheet">
+  <? endforeach; endif; ?>
 
   <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!--[if lt IE 9]>
