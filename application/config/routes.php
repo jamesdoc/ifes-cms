@@ -45,8 +45,9 @@ $route['404_override'] = '';
 
 $route['logout'] = 'login/logout';
 
-$route['(' . $resource_types . ')/records'] = "resource/records/$1";
+$route['(' . $resource_types . ')'] 	= "resource/records/$1";
 $route['(' . $resource_types . ')/edit/(:num)'] = "resource/edit/$2/$1";
+$route['(' . $resource_types . ')/new'] 		= "resource/create/$1";
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

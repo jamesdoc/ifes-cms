@@ -9,7 +9,39 @@ class Resource_model extends CI_Model
 		$this->db->where('resource_id', $resource_id);
 		$this->db->where('lang_code', $lang_code);
 
-		$this->db->delete('resource_translation'); 
+		$this->db->delete('resource_translation');
+		
+		// Check if we have just deleted the last translation in the resource...
+		$this->db->where('resource_id', $resource_id);
+		if ($this->db->count_all_results('resource_translation') == 0)
+		{
+			$this->db->where('resource_id', $resource_id);
+			$this->db->delete('resource');
+		}
+		
+	}
+	
+	function insert_resource($type)
+	{
+		
+		$this->db->set('member_id', $this->session->userdata('member_id'));
+		$this->db->set('type', $type);
+		$this->db->set('published_dt', date('Y-m-d H:i:s'));
+		$this->db->set('status', 0);
+		
+		$this->db->insert('resource'); 
+		
+		$resource_id = $this->db->insert_id();
+		
+		$this->db->set('resource_id',$resource_id);
+		$this->db->set('lang_code','en');
+		$this->db->set('status', 0);
+		$this->db->set('datetime', date('Y-m-d H:i:s'));
+		
+		$this->db->insert('resource_translation'); 
+		
+		redirect($type . '/edit/' . $resource_id);
+		
 	}
 	
 	function insert_translation($resource_id, $lang_code)

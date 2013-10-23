@@ -33,8 +33,14 @@ class Resource extends MY_Controller {
 
 
 		$data['resource'] = $this->resource_model->select_resource_for_edit($resource_id, $select_lang);
-
-		if($data['resource']->type != $type){
+		
+		if ($data['resource'] == null)
+		{
+			redirect();
+		}
+		
+		if ($data['resource']->type != $type)
+		{
 			redirect($data['resource']->type . '/edit/' . $resource_id);
 		}
 
@@ -56,6 +62,20 @@ class Resource extends MY_Controller {
 		}
 
 		$this->load->view('container', $data);
+	}
+	
+	public function create($type = null)
+	{
+		
+		if($type == null)
+		{
+			redirect();
+		}
+		
+		$this->load->model('resource_model');
+		
+		$this->resource_model->insert_resource($type);
+		
 	}
 
 	public function records($type = 'blog')
@@ -99,7 +119,6 @@ class Resource extends MY_Controller {
 		{
 
 		}
-	
 
 		if ($this->input->post('btn_delete'))
 		{
