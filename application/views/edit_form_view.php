@@ -252,35 +252,27 @@
 						</h4>
 					</div>
 					
-					<div id="collapseFive" class="panel-collapse collapse">
+					<div id="collapseFive" class="panel-collapse collapse in">
 						<div class="panel-body">
-
+							
+							
 							<?
 							$tags = '';
-							foreach($resource_tags as $tag)
+							if($resource_tags != null)
 							{
-								if($tag->tag_name != '')
+								foreach($resource_tags as $tag)
 								{
-									$tags .= ucfirst(trim($tag->tag_name)) . ',';
+									if($tag->tag_name != '')
+									{
+										$tags .= ucfirst(trim($tag->tag_name)) . ',';
+									}
 								}
 							}
 							?>
 
-							<div class="form-group">
-								<div class="input-group input-append">
-									<input type="text" class="form-control" name="txt_tags" />
-									<input type="hidden" name="hid_tags" value="<?=$tags?>" />
-									<span class="input-group-addon">
-										<i class="glyphicon glyphicon-tags"></i>
-									</span>
-								</div>
-							</div>
-
-							<ul>
-								<? foreach($resource_tags as $tag): if($tag->tag_name!=''):?>
-								<li><?=ucfirst($tag->tag_name)?></li>
-								<? endif; endforeach; ?>
-							</ul>
+							
+								<input type="text" class="form-control" value="<?=$tags?>" data-role="tagsinput" id="tags" name="txt_tags" />
+							
 							
 						</div>
 					</div>

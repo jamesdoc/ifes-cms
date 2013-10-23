@@ -48,8 +48,8 @@ class Resource extends MY_Controller {
 		$data['languages'] = $this->language_model->select_languages();
 		$data['post_as'] = $this->account_model->select_user_post_as($this->session->userdata('member_id'));
 
-		$data['javascript'] = array('bootstrap-datepicker');
-		$data['css'] = array('datepicker');
+		$data['javascript'] = array('bootstrap-datepicker','bootstrap-tagsinput','typeahead.min');
+		$data['css'] = array('datepicker','bootstrap-tagsinput');
 
 		switch($type)
 		{
@@ -156,6 +156,31 @@ class Resource extends MY_Controller {
 
 		return $return;
 
+	}
+	
+	
+	/* This should be replaced by the IFES API... but until such a thing happens please excuse this really ugly piece of legacy code */
+	function tags()
+	{
+		
+		$lang = "en";
+		
+		$sql = "SELECT tag_title AS name_display FROM tag_translation, tag WHERE tag.tag_id = tag_translation.tag_id AND tag.public = 1 AND tag.tag_id != 4 AND tag_title != ''";
+		
+		$sql.= " UNION SELECT locale_".$lang." AS name_display from locale";
+		
+		
+		$union = $this->db->query('SELECT * FROM ('.$sql.') a ORDER BY name_display ASC'); // sql statement being executed
+		
+		if($union->num_rows() > 0){ //check if the sql query returned rows more then 0
+			
+			foreach($union->result() as $row){
+				$data[] = $row->name_display;
+			}
+			
+			echo json_encode($data);
+			
+		}
 	}
 	
 

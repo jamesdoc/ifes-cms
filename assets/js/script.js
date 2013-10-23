@@ -1,4 +1,18 @@
-$(document).ready(function() {
+$(document).ready(function() {// Adding custom typeahead support using http://twitter.github.io/typeahead.js
+	
+	console.log($("#tags").val());
+	console.log($("#tags").tagsinput('items'));
+	
+	$('#tags').tagsinput('input').typeahead({
+		prefetch: 'http://cms.ifesworld.dev/resource/tags'
+	}).bind('typeahead:selected', $.proxy(function (obj, datum) { 
+		console.log(obj);
+		this.tagsinput('add', datum.value);
+		this.tagsinput('input').typeahead('setQuery', '');
+	}, $('#tags')));
+	
+
+	
 
 	$('.btn_translation_delete').click(function(e){
 		e.preventDefault();
