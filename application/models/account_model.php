@@ -51,5 +51,32 @@ class Account_model extends CI_Model
 		redirect();
 		
 	}
+
+
+
+	function select_user_post_as($member_id)
+	{
+
+		$query = "
+			SELECT member_id, knownas
+			FROM (tag_link)
+			JOIN individual ON SUBSTRING(tag_link.tag_id,2) = individual.member_id
+			WHERE page_id = 'u".mysql_real_escape_string($member_id)."'
+			ORDER BY knownas
+		";
+
+		$query = $this->db->query($query);
+
+		if($query->num_rows()>0)
+		{
+			
+			foreach ($query->result() as $row)
+			{
+				$data[] = $row;
+			}
+
+			return $data;
+		}
+	}
 	
 }

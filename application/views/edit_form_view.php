@@ -4,7 +4,9 @@
 
 		<div class="col-md-8">
 			
+			<? if(array_key_exists('content', $modules)): ?>
 			<div class="panel panel-primary">
+
 				<div class="panel-heading">
 					<h3 class="panel-title">Language specific content</h3>
 				</div>
@@ -13,51 +15,75 @@
 					
 					<div class="form-group">
 						
+						<? if(in_array('title', $modules['content'])): ?>
 						<div class="form-group">
 							<label for="txt_title">Title</label>
-							<input type="text" class="form-control" id="txt_title" name="txt_title" placeholder="">
+							<input type="text" class="form-control" id="txt_title" name="txt_title" placeholder="" value="<?=$resource->title?>">
 						</div>
+						<? endif; ?>
 						
+						<? if(in_array('content', $modules['content'])): ?>
 						<div class="form-group">
 							<label for="txt_body">Content</label>
-							<textarea class="form-control" id="txt_body" name="txt_body"></textarea>
+							<textarea class="form-control" id="txt_body" name="txt_body"><?=trim($resource->body)?></textarea>
 						</div>
+						<? endif; ?>
 						
 						<hr />
 						
-						<div class="form-group">
-							<label for="txt_link">Related link</label>
+						<? if(in_array('link', $modules['content'])): ?>
+						<label for="txt_link">Related link</label>
+						<div class="input-group">
 							<input type="text" class="form-control" id="txt_link" name="txt_link" placeholder="http://...">
+							<span class="input-group-addon">
+								<span class="glyphicon glyphicon-globe"></span>
+							</span>
 						</div>
+						<? endif; ?>
 						
+						<? if(in_array('short_description', $modules['content'])): ?>
 						<div class="form-group">
 							<label for="txt_link">Short description <small>(< 140 character)</small></label>
-							<textarea class="form-control" id="txt_shortdesc" name="txt_shortdesc"></textarea>
+							<textarea class="form-control" id="txt_short_description" name="txt_short_description"><?=$resource->desc_short?></textarea>
 						</div>
+						<? endif ?>
+
+						<input type="hidden" name="txt_lang_code" value="<?=$resource->lang_code?>" />
+
 					</div>
 					
 				</div>
 			</div>
+			<? endif;?>
 
 		</div>
 
 		<div class="col-md-4">
 			
+			<? if(array_key_exists('publish', $modules)): ?>
 			<div class="panel panel-primary">
 				<div class="panel-heading">
 					<h3 class="panel-title">Publish</h3>
 				</div>
 				
 				<div class="panel-body">
-					<button type="submit" class="btn btn-lg btn-success btn-block">Publish</button>
-					<button type="submit" class="btn btn-lg btn-warning btn-block">Save draft</button>
+
+					<? if($resource->status == 0): ?>
+						<button type="submit" class="btn btn-lg btn-success btn-block" name="btn_publish" value="Publish">Publish</button>
+						<button type="submit" class="btn btn-lg btn-warning btn-block" name="btn_save_draft" value="Save Draft">Save draft</button>
+					<? else: ?>
+						<button type="submit" class="btn btn-lg btn-success btn-block" name="btn_save" value="Update">Save</button>
+					<? endif; ?>
+
 					<hr />
-					<button type="submit" class="btn btn-sm btn-danger btn-block">Delete</button>
+					<button type="submit" class="btn btn-sm btn-danger btn-block" name="btn_delete" value="Delete">Delete</button>
 				</div>
 			</div>
+			<? endif; ?>
 			
 			<div class="panel-group" id="accordion">
 				
+				<? if(array_key_exists('datetime', $modules)): ?>
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<h4 class="panel-title">
@@ -69,29 +95,74 @@
 					
 					<div id="collapseTwo" class="panel-collapse collapse">
 						<div class="panel-body">
+							
+							<? if(in_array('published_dt', $modules['datetime'])): ?>
 							<div class="form-group">
-								<label>Start date</label>
-								<div id="startdate" class="input-group input-append date">
-									<input type="text" class="form-control"></input>
+								<label>Publish date</label>
+								<div id="datetimepicker_published_dt" class="input-group input-append date" data-date="<?=date('Y-m-d',strtotime($resource->published_dt))?>" data-date-format="yyyy-mm-dd">
+									<input type="text" class="form-control" name="publish_date" value="<?=date('Y-m-d',strtotime($resource->published_dt))?>" />
 									<span class="input-group-addon">
-										{ }
+										<i class="glyphicon glyphicon-calendar"></i>
 									</span>
 								</div>
 							</div>
+
+							<div class="form-group">
+								<label>Publish time</label>
+								<div class="input-group input-append time" data-date="<?=date('H:i',strtotime($resource->published_dt))?>" data-date-format="hh:ii">
+									<input type="text" class="form-control" name="publish_time" value="<?=date('H:i',strtotime($resource->published_dt))?>" />
+									<span class="input-group-addon">
+										<i class="glyphicon glyphicon-time"></i>
+									</span>
+								</div>
+							</div>
+
+							<? endif; ?>
+
+							<? /*
+							<? if(in_array('start_dt', $modules['datetime'])): ?>
+							<div class="form-group">
+								<label>Start date</label>
+								<div id="startdate" class="input-group input-append date">
+									<input type="text" class="form-control" value="<?=$resource->published_dt?>"></input>
+									<span class="input-group-addon">
+										<span class="glyphicon glyphicon-calendar"></span>
+									</span>
+								</div>
+							</div>
+							<? endif; ?>
 							
+							<? if(in_array('end_dt', $modules['datetime'])): ?>
 							<div class="form-group">
 								<label>End date</label>
 								<div id="datetimepicker" class="input-group input-append date">
 									<input type="text" class="form-control"></input>
 									<span class="input-group-addon">
-										{ }
+										<span class="glyphicon glyphicon-calendar"></span>
 									</span>
 								</div>
 							</div>
+							<? endif; ?>
+
+							<? if(in_array('week_number', $modules['datetime'])): ?>
+							<div class="form-group">
+								<label>Week number</label>
+								<div id="startdate" class="input-group input-append date">
+									<input type="text" class="form-control"></input>
+									<span class="input-group-addon">
+										<span class="glyphicon glyphicon-calendar"></span>
+									</span>
+								</div>
+							</div>
+							<? endif; ?>
+							*/ ?>
+
 						</div>
 					</div>
 				</div>
+				<? endif; ?>
 				
+				<? if(array_key_exists('translation', $modules)): ?>
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<h4 class="panel-title">
@@ -104,24 +175,41 @@
 					<div id="collapseThree" class="panel-collapse collapse in">
 						<div class="panel-body">
 							
-							<ul>
-								<li>English</li>
-								<li>Spanish</li>
-							</ul>
+							<? 
+								$translations = explode(',', $resource->translations);
+
+								foreach($translations as $translation):
+							?>
+
+								<div class="form-group">
+									<?=strtoupper($translation)?>
+									<button type="submit" class="btn btn-default btn-xs btn-warning" name="btn_translation_edit" value="<?=$translation?>">Edit</button>
+									<button type="submit" class="btn btn-default btn-xs btn-danger btn_translation_delete" name="btn_translation_delete" value="<?=$translation?>">Delete</button></li>
+								</div>
+
+							<? endforeach; ?>
 							
 							<label>Add new translation</label>
-							<div class="form-group">
-								<select class="form-control" name="cbo_post_as">
-									<option>English</option>
-									<option>Spanish</option>
-									<option>French</option>
-								</select>
+							<div class="form-inline">
+								<div class="form-group">
+
+									<select class="form-control" name="cbo_add_translation">
+										<? foreach($languages as $language): ?>
+										<option value="<?=$language->lang_code?>"><?=$language->name?></option>
+										<? endforeach; ?>
+									</select>
+
+								</div>
+
+								<button type="submit" class="btn btn-default" name="btn_add_translation" value="Add">Add</button>
 							</div>
 							
 						</div>
 					</div>
 				</div>
+				<? endif ?>
 				
+				<? if(array_key_exists('postas', $modules) && $post_as != null): ?>
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<h4 class="panel-title">
@@ -136,17 +224,25 @@
 							
 							<div class="form-group">
 								<select class="form-control" name="cbo_post_as">
-									<option>James Doc</option>
-									<option>Andy Moore</option>
-									<option>Penny Vinden</option>
+									<optgroup label="You">
+									<option value="<?=$this->session->userdata('member_id')?>"><?=$this->session->userdata('knownas')?></option>
+									</optgroup>
+
+									<optgroup label="Others">
+									<? foreach($post_as as $member): ?>
+									<option value="<?=$member->member_id?>"<? if($member->member_id == $resource->member_id){ echo ' selected';} ?>><?=$member->knownas?></option>
+									<? endforeach; ?>
+									</optgroup>
 								</select>
 							</div>
 							
 						</div>
 					</div>
 				</div>
+				<? endif; ?>
 				
-				
+				<? /* Looky looky: http://timschlechter.github.io/bootstrap-tagsinput/examples/ */?>
+				<? if (array_key_exists('tag', $modules)): ?>
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<h4 class="panel-title">
@@ -158,15 +254,39 @@
 					
 					<div id="collapseFive" class="panel-collapse collapse">
 						<div class="panel-body">
-							
+
+							<?
+							$tags = '';
+							foreach($resource_tags as $tag)
+							{
+								if($tag->tag_name != '')
+								{
+									$tags .= ucfirst(trim($tag->tag_name)) . ',';
+								}
+							}
+							?>
+
+							<div class="form-group">
+								<div class="input-group input-append">
+									<input type="text" class="form-control" name="txt_tags" />
+									<input type="hidden" name="hid_tags" value="<?=$tags?>" />
+									<span class="input-group-addon">
+										<i class="glyphicon glyphicon-tags"></i>
+									</span>
+								</div>
+							</div>
+
 							<ul>
-								<li></li>
-								<li></li>
+								<? foreach($resource_tags as $tag): if($tag->tag_name!=''):?>
+								<li><?=ucfirst($tag->tag_name)?></li>
+								<? endif; endforeach; ?>
 							</ul>
 							
 						</div>
 					</div>
 				</div>
+				<?endif?>
+
 			</div>
 
 		</div>
@@ -174,3 +294,9 @@
 	</div>
 
 </form>
+
+<hr />
+
+<pre>
+<?print_r($resource);?>
+</pre>

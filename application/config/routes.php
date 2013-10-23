@@ -38,10 +38,15 @@
 |
 */
 
+$resource_types = "blog|prayer|event|profile";
+
 $route['default_controller'] = "welcome";
 $route['404_override'] = '';
 
 $route['logout'] = 'login/logout';
+
+$route['(' . $resource_types . ')/records'] = "resource/records/$1";
+$route['(' . $resource_types . ')/edit/(:num)'] = "resource/edit/$2/$1";
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */
