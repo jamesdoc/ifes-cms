@@ -236,3 +236,9 @@
 .tt-suggestion p {
   margin: 0;
 }
+
+
+.image_btn
+{
+  border: 0; background: 50% 50% no-repeat; background-size: cover; margin: 0 1%; width: 8%; height: 50px; display: inline-block;
+}

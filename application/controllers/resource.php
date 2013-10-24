@@ -57,10 +57,7 @@ class Resource extends MY_Controller {
 		$this->ckConfig = array(
 			'toolbar' 	=> 	array(
 				array('Link','Unlink'),
-				array('Bold', 'Italic','Underline', 'Strike'),
-				array('NumberedList','BulletedList','Blockquote'),
-				array('Styles'),
-				array('Source')
+				array('Bold', 'Italic','Underline', 'Strike')
 				),
 			'forcePasteAsPlainText ' 	=> false,
 			'entities'					=> false,
@@ -71,22 +68,21 @@ class Resource extends MY_Controller {
 			'removePlugins'				=> 'elementspath' 
 		);
 		
-		$data['ckeditor'] = array
-		(
-			'id' 	=> 'txt_body',
-			'path'	=> 'assets/js/ckeditor',
-			'config'=> $this->ckConfig
-		);
 
 		switch($type)
 		{
 			case 'blog':
-				$data['modules'] = array('content' => array('title','content','short_description'),'publish' => TRUE,'datetime' => array('published_dt'),'translation' => TRUE,'postas' => TRUE,'tag' => TRUE);
+				$data['modules'] = array('content' => array('title','content','image','short_description'),'publish' => TRUE,'datetime' => array('published_dt'),'translation' => TRUE,'postas' => TRUE,'tag' => TRUE);
+				$this->ckConfig['toolbar'] = array(array('Link','Unlink'),array('Bold', 'Italic','Underline', 'Strike'),array('NumberedList','BulletedList','Blockquote'),array('Styles'),array('Source'));
 				break;
 			case 'prayer':
-				$data['modules'] = array('content' => array('content'),'publish' => TRUE,'datetime' => array('week_number'),'translation' => TRUE,'tag' => TRUE);
+				$data['modules'] = array('content' => array('content','image'),'publish' => TRUE,'datetime' => array('week_number'),'translation' => TRUE,'tag' => TRUE);
+				$this->ckConfig['forcePasteAsPlainText'] = true;
+				$this->ckConfig['height'] = '150px';
 				break;
 		}
+
+		$data['ckeditor'] = array('id' => 'txt_body', 'path' => 'assets/js/ckeditor', 'config' => $this->ckConfig);
 
 		$this->load->view('container', $data);
 	}
@@ -131,7 +127,7 @@ class Resource extends MY_Controller {
 	function _post_handler($resource_id)
 	{
 
-		
+		// Adding in an image handled by $this->resource_model->update_resource()
 
 		$return = array();
 
@@ -144,12 +140,15 @@ class Resource extends MY_Controller {
 
 		if ($this->input->post('btn_publish'))
 		{
-
+			$this->resource_model->update_resource_status($resource_id, '1');
 		}
 
-		if ($this->input->post('btn_delete'))
+		if ($this->input->post('btn_confirm_resource_delete'))
 		{
+			$this->resource_model->update_resource_status($resource_id, '-1');
+			//$this->resource_model->delete_resource($resource_id);
 
+			redirect($this->uri->segment(1));
 		}
 
 		if ($this->input->post('btn_translation_edit'))

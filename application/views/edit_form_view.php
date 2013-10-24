@@ -1,4 +1,4 @@
-<form role="form" method="post">
+<form role="form" method="post" id="edit_form">
 
 	<div class="row">
 
@@ -18,17 +18,34 @@
 						<? if(in_array('title', $modules['content'])): ?>
 						<div class="form-group">
 							<label for="txt_title">Title</label>
-							<input type="text" class="form-control" id="txt_title" name="txt_title" placeholder="" value="<?=$resource->title?>">
+							<input type="text" class="form-control" id="txt_title" name="txt_title" placeholder="" value="<?=$resource->title?>" />
 						</div>
 						<? endif; ?>
 						
 						<? if(in_array('content', $modules['content'])): ?>
 						<div class="form-group">
 							<label for="txt_body">Content</label>
-							<textarea class="form-control" id="txt_body" name="txt_body"><?=trim($resource->body)?></textarea>
+							<?/*<script src="//tinymce.cachefly.net/4.0/tinymce.min.js"></script>
+							<script>
+								tinymce.init({selector:'textarea#txt_body'});
+							</script>*/?>
+							<textarea class="form-control" id="txt_body" name="txt_body"><?=$resource->body?></textarea>
 							<?=display_ckeditor($ckeditor);?>
 						</div>
 						<? endif; ?>
+
+						<? if(in_array('image', $modules['content'])): ?>
+						<div class="form-group">
+							<label>Insert image</label>
+							<div>
+								
+								<? for($i=0; $i<10; $i++): ?><button type="submit" class="image_btn" style="background-image: url('http://ifesworld.org/assets/uploads/blogs/wsd_cover.jpg');" name="btn_insert_image" value="wsd_cover.jpg"></button><? endfor; ?>
+
+								<a href="#" class="btn btn-default btn_upload_new_image">Upload new...</a>
+
+							</div>
+						</div>
+						<? endif;?>
 						
 						<hr />
 						
@@ -77,7 +94,7 @@
 					<? endif; ?>
 
 					<hr />
-					<button type="submit" class="btn btn-sm btn-danger btn-block" name="btn_delete" value="Delete">Delete</button>
+					<button type="submit" class="btn btn-sm btn-danger btn-block btn_delete_resource" name="btn_delete" value="Delete">Delete</button>
 				</div>
 			</div>
 			<? endif; ?>
@@ -288,8 +305,10 @@
 
 </form>
 
+<? /*
 <hr />
 
 <pre>
 <?print_r($resource);?>
 </pre>
+*/?>

@@ -1,7 +1,28 @@
 <?php
 
 class Resource_model extends CI_Model
-{	
+{
+
+	function create_vanity_url($title)
+	{
+
+		$vanity_url = toUrlSlug($title);
+
+		while($this->select_vanity_url_count($vanity_url) != 0)
+		{
+			$vanity_url .= random_string('nozero', 1);
+		}
+
+		return $vanity_url;
+
+	}
+
+
+	function delete_resource($resource_id)
+	{	
+		$this->db->where('resource_id', $resource_id);
+		$this->db->delete('resource');
+	}
 
 	function delete_translation($resource_id, $lang_code)
 	{
@@ -100,7 +121,7 @@ class Resource_model extends CI_Model
 	function select_resource_for_edit($resource_id, $lang_code = null)
 	{
 
-		$this->db->select('resource.resource_id, resource.member_id, resource.type, resource.status, resource.discussion, resource.published_dt, resource.end_dt, resource_translation.resource_translation_id, resource_translation.lang_code, resource_translation.title, resource_translation.body, resource_translation.link, resource_translation.desc_long, resource_translation.desc_short, resource_translation.vanity_url');
+		$this->db->select('resource.resource_id, resource.member_id, resource.type, resource.status, resource.discussion, resource.published_dt, resource.end_dt, resource_translation.resource_translation_id, resource_translation.lang_code, resource_translation.title, resource_translation.body, resource_translation.link, resource_translation.desc_long, resource_translation.desc_short, resource_translation.vanity_url, resource_translation.status AS translation_status');
 
 		$this->db->select("(SELECT GROUP_CONCAT(lang_code) translations FROM resource_translation WHERE resource_id = $resource_id) AS translations", false);
 
@@ -167,7 +188,11 @@ class Resource_model extends CI_Model
 		}
 	}
 
-
+	function select_vanity_url_count($vanity_url)
+	{
+		$this->db->where('vanity_url', $vanity_url);
+		return $this->db->count_all_results('resource_translation');
+	}
 
 
 	function update_resource($resource_id)
@@ -185,12 +210,22 @@ class Resource_model extends CI_Model
 			
 		}
 
-		$resource['member_id'] = $this->input->post('cbo_post_as');
+		if($this->input->post('cbo_post_as'))
+		{
+			$resource['member_id'] = $this->input->post('cbo_post_as');
+		}
+		else
+		{
+			$resource['member_id'] = $this->session->userdata('member_id');
+		}
 
 		$this->db->where('resource_id', $resource_id);
 		$this->db->update('resource', $resource);
 
 		//------
+
+		// Select a bit of data to do some comparison
+		$current = $this->select_resource_for_edit($resource_id, $this->input->post('txt_lang_code'));
 
 		$translation = array
 		(
@@ -201,9 +236,18 @@ class Resource_model extends CI_Model
 			'status'		=> 1
 		);
 
-		if ($translation['title'] == '')
+		if($this->input->post('btn_insert_image'))
 		{
-			$translation['title'] = 'untitled';
+			$translation['body'] = '<p><img alt="" class="pull img-centre" src="http://ifesworld.org/assets/uploads/blogs/' . $this->input->post('btn_insert_image') . '" /></p>' . $translation['body'];
+		}
+
+		//print_r($this->input->post());
+		//exit;
+
+		// Set vanity_url
+		if ($translation['title'] != null AND ($current->status != 1 OR $current->vanity_url == '' OR $current->translation_status != 1))
+		{
+			$translation['vanity_url'] = $this->create_vanity_url($translation['title']);
 		}
 
 		$this->db->where('resource_id', $resource_id);
@@ -227,6 +271,12 @@ class Resource_model extends CI_Model
 	}
 
 
+	function update_resource_status($resource_id, $status_code)
+	{
+		$this->db->set('status', $status_code);
+		$this->db->where('resource_id', $resource_id);
+		$this->db->update('resource', 'resource');
+	}
 
 
 
