@@ -26,6 +26,7 @@
 						<div class="form-group">
 							<label for="txt_body">Content</label>
 							<textarea class="form-control" id="txt_body" name="txt_body"><?=trim($resource->body)?></textarea>
+							<?=display_ckeditor($ckeditor);?>
 						</div>
 						<? endif; ?>
 						

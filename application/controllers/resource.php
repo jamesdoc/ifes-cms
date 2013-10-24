@@ -31,7 +31,6 @@ class Resource extends MY_Controller {
 
 		isset($return['lang_code']) ? $select_lang = $return['lang_code'] :  $select_lang = null;
 
-
 		$data['resource'] = $this->resource_model->select_resource_for_edit($resource_id, $select_lang);
 		
 		if ($data['resource'] == null)
@@ -48,8 +47,36 @@ class Resource extends MY_Controller {
 		$data['languages'] = $this->language_model->select_languages();
 		$data['post_as'] = $this->account_model->select_user_post_as($this->session->userdata('member_id'));
 
+
+
 		$data['javascript'] = array('bootstrap-datepicker','bootstrap-tagsinput','typeahead.min');
 		$data['css'] = array('datepicker','bootstrap-tagsinput');
+
+		$this->load->helper('ckeditor');
+
+		$this->ckConfig = array(
+			'toolbar' 	=> 	array(
+				array('Link','Unlink'),
+				array('Bold', 'Italic','Underline', 'Strike'),
+				array('NumberedList','BulletedList','Blockquote'),
+				array('Styles'),
+				array('Source')
+				),
+			'forcePasteAsPlainText ' 	=> false,
+			'entities'					=> false,
+			'removeFormatTags'			=> 'b,big,code,del,dfn,em,font,i,ins,kbd',
+			'toolbarLocation' 			=> 'bottom',
+			'width'						=> '100%',
+			'height'					=> '300px',
+			'removePlugins'				=> 'elementspath' 
+		);
+		
+		$data['ckeditor'] = array
+		(
+			'id' 	=> 'txt_body',
+			'path'	=> 'assets/js/ckeditor',
+			'config'=> $this->ckConfig
+		);
 
 		switch($type)
 		{
