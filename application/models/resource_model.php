@@ -214,14 +214,13 @@ class Resource_model extends CI_Model
 		//------
 
 		
-		if ($this->input->post('txt_tags'))
+		if ($this->input->post('txt_tags') && $this->input->post('txt_tags') != "")
 		{
-			// $tags = explode(',', $this->input->post('txt_tags'));
 			
-			// print_r($tags);
-			// exit;
-			
-			// $this->insert_resource_tag_link($resource_id, $tags);
+			$this->load->model('tag_model');
+
+			$tags = explode(',', $this->input->post('txt_tags'));
+			$this->tag_model->insert_link_tag_resource($resource_id, $tags);
 		}
 		
 
