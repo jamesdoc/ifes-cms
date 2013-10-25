@@ -207,7 +207,21 @@ class Resource_model extends CI_Model
 			{
 				$resource['published_dt'] = date('Y-m-d H:i:s', strtotime($resource['published_dt'] . ' ' . $this->input->post('publish_time')));
 			}
-			
+		}
+
+		if($this->input->post('start_date'))
+		{
+			$resource['published_dt'] = date('Y-m-d', strtotime($this->input->post('start_date')));
+		}
+
+		if($this->input->post('end_date'))
+		{
+			$resource['end_dt'] = date('Y-m-d', strtotime($this->input->post('end_date')));
+
+			if($resource['end_dt'] == "" || $resource['end_dt'] < $resource['published_dt'])
+			{
+				$resource['end_dt'] = $resource['published_dt'];
+			}
 		}
 
 		if($this->input->post('cbo_post_as'))

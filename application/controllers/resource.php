@@ -86,6 +86,11 @@ class Resource extends MY_Controller {
 				$this->ckConfig['forcePasteAsPlainText'] = true;
 				$this->ckConfig['height'] = '150px';
 				break;
+			case 'event':
+				$data['modules'] = array('content' => array('title','content','link'),'publish' => TRUE,'datetime' => array('start_dt','end_dt'),'translation' => TRUE,'tag' => TRUE);
+				$this->ckConfig['forcePasteAsPlainText'] = true;
+				$this->ckConfig['height'] = '150px';
+				break;
 		}
 
 		// If image module required then get some recent images...

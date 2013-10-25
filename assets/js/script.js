@@ -1,6 +1,9 @@
 $(document).ready(function() {
 		
-	
+	$('#datetimepicker_published_dt').datepicker();
+	$('#datetimepicker_start_dt').datepicker();
+	$('#datetimepicker_end_dt').datepicker();
+
 	$('#tags').tagsinput('input').typeahead({
 		prefetch: 'http://cms.ifesworld.dev/resource/tags'
 	}).bind('typeahead:selected', $.proxy(function (obj, datum) { 

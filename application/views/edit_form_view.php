@@ -145,17 +145,16 @@
 									</span>
 								</div>
 							</div>
-
 							<? endif; ?>
 
-							<? /*
+							
 							<? if(in_array('start_dt', $modules['datetime'])): ?>
 							<div class="form-group">
 								<label>Start date</label>
-								<div id="startdate" class="input-group input-append date">
-									<input type="text" class="form-control" value="<?=$resource->published_dt?>"></input>
+								<div id="datetimepicker_start_dt" class="input-group input-append date" data-date="<?=date('Y-m-d',strtotime($resource->published_dt))?>" data-date-format="yyyy-mm-dd">
+									<input type="text" class="form-control" name="start_date" value="<?=date('Y-m-d',strtotime($resource->published_dt))?>" />
 									<span class="input-group-addon">
-										<span class="glyphicon glyphicon-calendar"></span>
+										<i class="glyphicon glyphicon-calendar"></i>
 									</span>
 								</div>
 							</div>
@@ -164,15 +163,16 @@
 							<? if(in_array('end_dt', $modules['datetime'])): ?>
 							<div class="form-group">
 								<label>End date</label>
-								<div id="datetimepicker" class="input-group input-append date">
-									<input type="text" class="form-control"></input>
+								<div id="datetimepicker_end_dt" class="input-group input-append date" data-date="<?=date('Y-m-d',strtotime($resource->end_dt))?>" data-date-format="yyyy-mm-dd">
+									<input type="text" class="form-control" name="end_date" value="<?=date('Y-m-d',strtotime($resource->end_dt))?>" />
 									<span class="input-group-addon">
-										<span class="glyphicon glyphicon-calendar"></span>
+										<i class="glyphicon glyphicon-calendar"></i>
 									</span>
 								</div>
 							</div>
 							<? endif; ?>
 
+							<? /*
 							<? if(in_array('week_number', $modules['datetime'])): ?>
 							<div class="form-group">
 								<label>Week number</label>
