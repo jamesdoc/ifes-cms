@@ -176,19 +176,19 @@
 							</div>
 							<? endif; ?>
 
-							<? /*
 							<? if(in_array('week_number', $modules['datetime'])): ?>
 							<div class="form-group">
+								<? $date = ($resource->published_dt != "" ? date('Y-m-d',strtotime($resource->published_dt)) : ''); ?>
 								<label>Week number</label>
-								<div id="startdate" class="input-group input-append date">
-									<input type="text" class="form-control"></input>
+								<div id="startdate" class="input-group input-append date week-number" data-date="<?=$date?>" data-date-format="yyyy-mm-dd">
+									<input type="text" class="form-control" value="<?=$date?>" name="week_begin" />
 									<span class="input-group-addon">
 										<span class="glyphicon glyphicon-calendar"></span>
 									</span>
 								</div>
+								<p class="help-block">This is a helpful message.</p>
 							</div>
 							<? endif; ?>
-							*/ ?>
 
 						</div>
 					</div>

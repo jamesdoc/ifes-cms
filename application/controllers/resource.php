@@ -27,6 +27,14 @@ class Resource extends MY_Controller {
 			{
 				$data['error'][] = $return['image_error'];
 			}
+
+			if(isset($return['update_alerts']))
+			{
+				foreach($return['update_alerts'] as $alert)
+				{
+					$data['error'][] = $alert;
+				}
+			}
 		}
 
 
@@ -82,7 +90,7 @@ class Resource extends MY_Controller {
 				$this->ckConfig['toolbar'] = array(array('Link','Unlink'),array('Bold', 'Italic','Underline', 'Strike'),array('NumberedList','BulletedList','Blockquote'),array('Styles'),array('Source'));
 				break;
 			case 'prayer':
-				$data['modules'] = array('content' => array('content','image'),'publish' => TRUE,'datetime' => array('week_number'),'translation' => TRUE,'tag' => TRUE);
+				$data['modules'] = array('content' => array('content'),'publish' => TRUE,'datetime' => array('week_number'),'translation' => TRUE,'tag' => TRUE);
 				$this->ckConfig['forcePasteAsPlainText'] = true;
 				$this->ckConfig['height'] = '150px';
 				break;
@@ -152,7 +160,7 @@ class Resource extends MY_Controller {
 		// Action one: SAVE
 		$this->load->model('resource_model');
 
-		$this->resource_model->update_resource($resource_id);
+		$return['update_alerts'] = $this->resource_model->update_resource($resource_id);
 
 		$return['lang_code'] = $this->input->post('txt_lang_code');
 
@@ -163,7 +171,8 @@ class Resource extends MY_Controller {
 
 		if ($this->input->post('btn_confirm_resource_delete'))
 		{
-			$this->resource_model->update_resource_status($resource_id, '-1');
+			$this->resource_model->delete_resource($resource_id);
+			//$this->resource_model->update_resource_status($resource_id, '-1');
 
 			redirect($this->uri->segment(1));
 		}

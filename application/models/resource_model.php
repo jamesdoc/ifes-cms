@@ -3,6 +3,23 @@
 class Resource_model extends CI_Model
 {
 
+	function check_type_date_conflict($date, $type = null, $resource_id = null)
+	{
+		if ($type != null)
+		{
+			$this->db->where('type', $type);
+		}
+
+		if ($resource_id != null)
+		{
+			$this->db->where('resource_id !=', $resource_id);
+		}
+
+		$this->db->where('published_dt', $date);
+
+		return $this->db->count_all_results('resource');
+	}
+
 	function create_vanity_url($title)
 	{
 
@@ -99,6 +116,7 @@ class Resource_model extends CI_Model
 		$this->db->group_by('resource.resource_id');
 
 		$this->db->where('type',$type);
+		$this->db->where('resource.status >',0);
 
 		$this->db->order_by('published_dt', 'DESC');
 
@@ -198,7 +216,10 @@ class Resource_model extends CI_Model
 	function update_resource($resource_id)
 	{
 
-		if($this->input->post('publish_date'))
+		// Select a bit of data to do some comparison
+		$current = $this->select_resource_for_edit($resource_id, $this->input->post('txt_lang_code'));
+
+		if ($this->input->post('publish_date'))
 		{
 			$resource['published_dt'] = date('Y-m-d', strtotime($this->input->post('publish_date')));
 
@@ -208,7 +229,7 @@ class Resource_model extends CI_Model
 			}
 		}
 
-		if($this->input->post('start_date'))
+		if ($this->input->post('start_date'))
 		{
 
 			$resource['published_dt'] = date('Y-m-d', strtotime($this->input->post('start_date')));
@@ -227,7 +248,29 @@ class Resource_model extends CI_Model
 			}
 		}
 
-		if($this->input->post('cbo_post_as'))
+		if ($this->input->post('week_begin'))
+		{
+
+			$input = date('Y-m-d', strtotime($this->input->post('week_begin')));
+			$wb = date('Y-m-d', strtotime( ('Monday' == date('l', strtotime($input)) ? 'Monday this week' : 'Last Monday'), strtotime($input)));
+			
+			if ($current->type == 'prayer'/* && featured = true */)
+			{
+				if($this->check_type_date_conflict($wb, $current->type, $current->resource_id) == 0)
+				{
+					$resource['published_dt'] = $wb;
+				}
+				else
+				{
+					$resource['published_dt'] = null;
+					$error[] = 'Record already exists in database for this date';
+				}
+
+			}
+
+		}
+
+		if ($this->input->post('cbo_post_as'))
 		{
 			$resource['member_id'] = $this->input->post('cbo_post_as');
 		}
@@ -243,8 +286,7 @@ class Resource_model extends CI_Model
 
 		//------
 
-		// Select a bit of data to do some comparison
-		$current = $this->select_resource_for_edit($resource_id, $this->input->post('txt_lang_code'));
+		
 
 		$translation = array
 		(
@@ -254,6 +296,8 @@ class Resource_model extends CI_Model
 			'desc_short'	=> $this->input->post('txt_short_description'),
 			'status'		=> 1
 		);
+
+		if($translation['title'] == ""){$translation['title'] = null;}
 
 		if($this->input->post('btn_insert_image'))
 		{
@@ -281,6 +325,11 @@ class Resource_model extends CI_Model
 
 			$tags = explode(',', $this->input->post('txt_tags'));
 			$this->tag_model->insert_link_tag_resource($resource_id, $tags);
+		}
+
+		if(isset($error))
+		{
+			return $error;
 		}
 		
 

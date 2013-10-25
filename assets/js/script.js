@@ -1,6 +1,6 @@
 $(document).ready(function() {
 		
-	$('.input-append.date').datepicker({orientation: "top auto", autoclose: true});
+	$('.input-append.date').datepicker({weekStart: 1, orientation: "top auto", autoclose: true, calendarWeeks: true});
 
 
 	$('#tags').tagsinput('input').typeahead({
