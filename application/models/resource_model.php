@@ -198,7 +198,6 @@ class Resource_model extends CI_Model
 	function update_resource($resource_id)
 	{
 
-		
 		if($this->input->post('publish_date'))
 		{
 			$resource['published_dt'] = date('Y-m-d', strtotime($this->input->post('publish_date')));
@@ -211,16 +210,20 @@ class Resource_model extends CI_Model
 
 		if($this->input->post('start_date'))
 		{
+
 			$resource['published_dt'] = date('Y-m-d', strtotime($this->input->post('start_date')));
-		}
 
-		if($this->input->post('end_date'))
-		{
-			$resource['end_dt'] = date('Y-m-d', strtotime($this->input->post('end_date')));
-
-			if($resource['end_dt'] == "" || $resource['end_dt'] < $resource['published_dt'])
+			if($this->input->post('end_date') == "")
 			{
 				$resource['end_dt'] = $resource['published_dt'];
+			}
+			else if (strtotime($this->input->post('end_date')) < strtotime($resource['published_dt']))
+			{
+				$resource['end_dt'] = $resource['published_dt'];
+			}
+			else
+			{
+				$resource['end_dt'] = date('Y-m-d', strtotime($this->input->post('end_date')));
 			}
 		}
 
@@ -232,6 +235,8 @@ class Resource_model extends CI_Model
 		{
 			$resource['member_id'] = $this->session->userdata('member_id');
 		}
+
+		$resource['edited_dt'] = date('Y-m-d H:i:s');
 
 		$this->db->where('resource_id', $resource_id);
 		$this->db->update('resource', $resource);
@@ -245,7 +250,7 @@ class Resource_model extends CI_Model
 		(
 			'title'			=> $this->input->post('txt_title'),
 			'body'			=> $this->input->post('txt_body'),
-			'link'			=> $this->input->post('txt_link'),
+			'link'			=> prep_url($this->input->post('txt_link')),
 			'desc_short'	=> $this->input->post('txt_short_description'),
 			'status'		=> 1
 		);
@@ -286,7 +291,7 @@ class Resource_model extends CI_Model
 	{
 		$this->db->set('status', $status_code);
 		$this->db->where('resource_id', $resource_id);
-		$this->db->update('resource', 'resource');
+		$this->db->update('resource');
 	}
 
 

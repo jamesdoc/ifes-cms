@@ -1,8 +1,7 @@
 $(document).ready(function() {
 		
-	$('#datetimepicker_published_dt').datepicker();
-	$('#datetimepicker_start_dt').datepicker();
-	$('#datetimepicker_end_dt').datepicker();
+	$('.input-append.date').datepicker({orientation: "top auto", autoclose: true});
+
 
 	$('#tags').tagsinput('input').typeahead({
 		prefetch: 'http://cms.ifesworld.dev/resource/tags'

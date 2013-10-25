@@ -63,7 +63,7 @@
 						<? if(in_array('link', $modules['content'])): ?>
 						<label for="txt_link">Related link</label>
 						<div class="input-group">
-							<input type="text" class="form-control" id="txt_link" name="txt_link" placeholder="http://...">
+							<input type="text" class="form-control" id="txt_link" name="txt_link" placeholder="http://..." value="<?=$resource->link?>">
 							<span class="input-group-addon">
 								<span class="glyphicon glyphicon-globe"></span>
 							</span>
@@ -127,9 +127,10 @@
 							
 							<? if(in_array('published_dt', $modules['datetime'])): ?>
 							<div class="form-group">
+								<? $date = ($resource->published_dt != "" ? date('Y-m-d',strtotime($resource->published_dt)) : ''); ?>
 								<label>Publish date</label>
-								<div id="datetimepicker_published_dt" class="input-group input-append date" data-date="<?=date('Y-m-d',strtotime($resource->published_dt))?>" data-date-format="yyyy-mm-dd">
-									<input type="text" class="form-control" name="publish_date" value="<?=date('Y-m-d',strtotime($resource->published_dt))?>" />
+								<div id="datetimepicker_published_dt" class="input-group input-append date" data-date="<?=$date?>" data-date-format="yyyy-mm-dd">
+									<input type="text" class="form-control" name="publish_date" value="<?=$date?>" />
 									<span class="input-group-addon">
 										<i class="glyphicon glyphicon-calendar"></i>
 									</span>
@@ -137,9 +138,10 @@
 							</div>
 
 							<div class="form-group">
+								<? $time = ($resource->published_dt != "" ? date('H:i',strtotime($resource->published_dt)) : ''); ?>
 								<label>Publish time</label>
-								<div class="input-group input-append time" data-date="<?=date('H:i',strtotime($resource->published_dt))?>" data-date-format="hh:ii">
-									<input type="text" class="form-control" name="publish_time" value="<?=date('H:i',strtotime($resource->published_dt))?>" />
+								<div class="input-group input-append time" data-date="<?=$time?>" data-date-format="hh:ii">
+									<input type="text" class="form-control" name="publish_time" value="<?=$time?>" />
 									<span class="input-group-addon">
 										<i class="glyphicon glyphicon-time"></i>
 									</span>
@@ -150,9 +152,10 @@
 							
 							<? if(in_array('start_dt', $modules['datetime'])): ?>
 							<div class="form-group">
+								<? $date = ($resource->published_dt != "" ? date('Y-m-d',strtotime($resource->published_dt)) : ''); ?>
 								<label>Start date</label>
-								<div id="datetimepicker_start_dt" class="input-group input-append date" data-date="<?=date('Y-m-d',strtotime($resource->published_dt))?>" data-date-format="yyyy-mm-dd">
-									<input type="text" class="form-control" name="start_date" value="<?=date('Y-m-d',strtotime($resource->published_dt))?>" />
+								<div id="datetimepicker_start_dt" class="input-group input-append date" data-date="<?=$date?>" data-date-format="yyyy-mm-dd">
+									<input type="text" class="form-control" name="start_date" value="<?=$date?>" />
 									<span class="input-group-addon">
 										<i class="glyphicon glyphicon-calendar"></i>
 									</span>
@@ -162,9 +165,10 @@
 							
 							<? if(in_array('end_dt', $modules['datetime'])): ?>
 							<div class="form-group">
+								<? $date = ($resource->end_dt != "" ? date('Y-m-d',strtotime($resource->end_dt)) : ''); ?>
 								<label>End date</label>
-								<div id="datetimepicker_end_dt" class="input-group input-append date" data-date="<?=date('Y-m-d',strtotime($resource->end_dt))?>" data-date-format="yyyy-mm-dd">
-									<input type="text" class="form-control" name="end_date" value="<?=date('Y-m-d',strtotime($resource->end_dt))?>" />
+								<div id="datetimepicker_end_dt" class="input-group input-append date" data-date="<?=$date?>" data-date-format="yyyy-mm-dd">
+									<input type="text" class="form-control" name="end_date" value="<?=$date?>" />
 									<span class="input-group-addon">
 										<i class="glyphicon glyphicon-calendar"></i>
 									</span>
