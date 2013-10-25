@@ -4,7 +4,7 @@
  */
 
 
-//csslocation = site_url + '/assets/css/import/ckEditor.css';
+csslocation = window.location.protocol + '//' + document.location.hostname + '/assets/css/ckEditor.css';
 
 CKEDITOR.editorConfig = function( config ) {
 	// Define changes to default configuration here.
@@ -42,7 +42,7 @@ CKEDITOR.editorConfig = function( config ) {
 
 	config.toolbarCanCollapse = false;
 
-	//config.contentsCss = csslocation;
+	config.contentsCss = csslocation;
 
 };
 

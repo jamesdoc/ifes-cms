@@ -38,10 +38,6 @@
 						<? if(in_array('content', $modules['content'])): ?>
 						<div class="form-group">
 							<label for="txt_body">Content</label>
-							<?/*<script src="//tinymce.cachefly.net/4.0/tinymce.min.js"></script>
-							<script>
-								tinymce.init({selector:'textarea#txt_body'});
-							</script>*/?>
 							<textarea class="form-control" id="txt_body" name="txt_body"><?=$resource->body?></textarea>
 							<?=display_ckeditor($ckeditor);?>
 						</div>
