@@ -86,16 +86,16 @@ class Resource extends MY_Controller {
 		switch($type)
 		{
 			case 'blog':
-				$data['modules'] = array('content' => array('title','content','image','short_description'),'publish' => TRUE,'datetime' => array('published_dt'),'translation' => TRUE,'postas' => TRUE,'tag' => TRUE);
+				$data['modules'] = array('content' => array('title','content','image','short_description'),'publish' => TRUE,'datetime' => array('published_dt'),'translation' => TRUE, 'additionals' => array('post_as','featured','comments'), 'tag' => TRUE);
 				$this->ckConfig['toolbar'] = array(array('Link','Unlink'),array('Bold', 'Italic','Underline', 'Strike'),array('NumberedList','BulletedList','Blockquote'),array('Styles'),array('Source'));
 				break;
 			case 'prayer':
-				$data['modules'] = array('content' => array('content'),'publish' => TRUE,'datetime' => array('week_number'),'translation' => TRUE,'tag' => TRUE);
+				$data['modules'] = array('content' => array('content'),'publish' => TRUE,'datetime' => array('week_number'),'translation' => TRUE,'additionals' => array('featured'), 'tag' => TRUE);
 				$this->ckConfig['forcePasteAsPlainText'] = true;
 				$this->ckConfig['height'] = '150px';
 				break;
 			case 'event':
-				$data['modules'] = array('content' => array('title','content','link'),'publish' => TRUE,'datetime' => array('start_dt','end_dt'),'translation' => TRUE,'tag' => TRUE);
+				$data['modules'] = array('content' => array('title','content','link'),'publish' => TRUE,'datetime' => array('start_dt','end_dt'),'translation' => TRUE, 'tag' => TRUE);
 				$this->ckConfig['forcePasteAsPlainText'] = true;
 				$this->ckConfig['height'] = '150px';
 				break;

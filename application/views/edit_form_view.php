@@ -110,209 +110,233 @@
 			</div>
 			<? endif; ?>
 			
-			<div class="panel-group" id="accordion">
+			
 				
-				<? if(array_key_exists('datetime', $modules)): ?>
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<h4 class="panel-title">
-							<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
-								Dates and times
-							</a>
-						</h4>
-					</div>
-					
-					<div id="collapseTwo" class="panel-collapse collapse">
-						<div class="panel-body">
-							
-							<? if(in_array('published_dt', $modules['datetime'])): ?>
-							<div class="form-group">
-								<? $date = ($resource->published_dt != "" ? date('Y-m-d',strtotime($resource->published_dt)) : ''); ?>
-								<label>Publish date</label>
-								<div id="datetimepicker_published_dt" class="input-group input-append date" data-date="<?=$date?>" data-date-format="yyyy-mm-dd">
-									<input type="text" class="form-control" name="publish_date" value="<?=$date?>" />
-									<span class="input-group-addon">
-										<i class="glyphicon glyphicon-calendar"></i>
-									</span>
-								</div>
+			<? if(array_key_exists('datetime', $modules)): ?>
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h4 class="panel-title">
+						<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+							Dates and times
+						</a>
+					</h4>
+				</div>
+				
+				<div id="collapseTwo" class="panel-collapse collapse">
+					<div class="panel-body">
+						
+						<? if(in_array('published_dt', $modules['datetime'])): ?>
+						<div class="form-group">
+							<? $date = ($resource->published_dt != "" ? date('Y-m-d',strtotime($resource->published_dt)) : ''); ?>
+							<label>Publish date</label>
+							<div id="datetimepicker_published_dt" class="input-group input-append date" data-date="<?=$date?>" data-date-format="yyyy-mm-dd">
+								<input type="text" class="form-control" name="publish_date" value="<?=$date?>" />
+								<span class="input-group-addon">
+									<i class="glyphicon glyphicon-calendar"></i>
+								</span>
 							</div>
-
-							<div class="form-group">
-								<? $time = ($resource->published_dt != "" ? date('H:i',strtotime($resource->published_dt)) : ''); ?>
-								<label>Publish time</label>
-								<div class="input-group input-append time" data-date="<?=$time?>" data-date-format="hh:ii">
-									<input type="text" class="form-control" name="publish_time" value="<?=$time?>" />
-									<span class="input-group-addon">
-										<i class="glyphicon glyphicon-time"></i>
-									</span>
-								</div>
-							</div>
-							<? endif; ?>
-
-							
-							<? if(in_array('start_dt', $modules['datetime'])): ?>
-							<div class="form-group">
-								<? $date = ($resource->published_dt != "" ? date('Y-m-d',strtotime($resource->published_dt)) : ''); ?>
-								<label>Start date</label>
-								<div id="datetimepicker_start_dt" class="input-group input-append date" data-date="<?=$date?>" data-date-format="yyyy-mm-dd">
-									<input type="text" class="form-control" name="start_date" value="<?=$date?>" />
-									<span class="input-group-addon">
-										<i class="glyphicon glyphicon-calendar"></i>
-									</span>
-								</div>
-							</div>
-							<? endif; ?>
-							
-							<? if(in_array('end_dt', $modules['datetime'])): ?>
-							<div class="form-group">
-								<? $date = ($resource->end_dt != "" ? date('Y-m-d',strtotime($resource->end_dt)) : ''); ?>
-								<label>End date</label>
-								<div id="datetimepicker_end_dt" class="input-group input-append date" data-date="<?=$date?>" data-date-format="yyyy-mm-dd">
-									<input type="text" class="form-control" name="end_date" value="<?=$date?>" />
-									<span class="input-group-addon">
-										<i class="glyphicon glyphicon-calendar"></i>
-									</span>
-								</div>
-							</div>
-							<? endif; ?>
-
-							<? if(in_array('week_number', $modules['datetime'])): ?>
-							<div class="form-group">
-								<? $date = ($resource->published_dt != "" ? date('Y-m-d',strtotime($resource->published_dt)) : ''); ?>
-								<label>Week number</label>
-								<div id="startdate" class="input-group input-append date week-number" data-date="<?=$date?>" data-date-format="yyyy-mm-dd">
-									<input type="text" class="form-control" value="<?=$date?>" name="week_begin" />
-									<span class="input-group-addon">
-										<span class="glyphicon glyphicon-calendar"></span>
-									</span>
-								</div>
-								<p class="help-block">This is a helpful message.</p>
-							</div>
-							<? endif; ?>
-
 						</div>
+
+						<div class="form-group">
+							<? $time = ($resource->published_dt != "" ? date('H:i',strtotime($resource->published_dt)) : ''); ?>
+							<label>Publish time</label>
+							<div class="input-group input-append time" data-date="<?=$time?>" data-date-format="hh:ii">
+								<input type="text" class="form-control" name="publish_time" value="<?=$time?>" />
+								<span class="input-group-addon">
+									<i class="glyphicon glyphicon-time"></i>
+								</span>
+							</div>
+						</div>
+						<? endif; ?>
+
+						
+						<? if(in_array('start_dt', $modules['datetime'])): ?>
+						<div class="form-group">
+							<? $date = ($resource->published_dt != "" ? date('Y-m-d',strtotime($resource->published_dt)) : ''); ?>
+							<label>Start date</label>
+							<div id="datetimepicker_start_dt" class="input-group input-append date" data-date="<?=$date?>" data-date-format="yyyy-mm-dd">
+								<input type="text" class="form-control" name="start_date" value="<?=$date?>" />
+								<span class="input-group-addon">
+									<i class="glyphicon glyphicon-calendar"></i>
+								</span>
+							</div>
+						</div>
+						<? endif; ?>
+						
+						<? if(in_array('end_dt', $modules['datetime'])): ?>
+						<div class="form-group">
+							<? $date = ($resource->end_dt != "" ? date('Y-m-d',strtotime($resource->end_dt)) : ''); ?>
+							<label>End date</label>
+							<div id="datetimepicker_end_dt" class="input-group input-append date" data-date="<?=$date?>" data-date-format="yyyy-mm-dd">
+								<input type="text" class="form-control" name="end_date" value="<?=$date?>" />
+								<span class="input-group-addon">
+									<i class="glyphicon glyphicon-calendar"></i>
+								</span>
+							</div>
+						</div>
+						<? endif; ?>
+
+						<? if(in_array('week_number', $modules['datetime'])): ?>
+						<div class="form-group">
+							<? $date = ($resource->published_dt != "" ? date('Y-m-d',strtotime($resource->published_dt)) : ''); ?>
+							<label>Week number</label>
+							<div id="startdate" class="input-group input-append date week-number" data-date="<?=$date?>" data-date-format="yyyy-mm-dd">
+								<input type="text" class="form-control" value="<?=$date?>" name="week_begin" />
+								<span class="input-group-addon">
+									<span class="glyphicon glyphicon-calendar"></span>
+								</span>
+							</div>
+							<p class="help-block">This is a helpful message.</p>
+						</div>
+						<? endif; ?>
+
 					</div>
 				</div>
-				<? endif; ?>
-				
-				<? if(array_key_exists('translation', $modules)): ?>
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<h4 class="panel-title">
-							<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
-								Translations
-							</a>
-						</h4>
-					</div>
-					
-					<div id="collapseThree" class="panel-collapse collapse in">
-						<div class="panel-body">
-							
-							<? 
-								$translations = explode(',', $resource->translations);
-
-								foreach($translations as $translation):
-							?>
-
-								<div class="form-group">
-									<?=strtoupper($translation)?>
-									<button type="submit" class="btn btn-default btn-xs btn-warning" name="btn_translation_edit" value="<?=$translation?>">Edit</button>
-									<button type="submit" class="btn btn-default btn-xs btn-danger btn_translation_delete" name="btn_translation_delete" value="<?=$translation?>">Delete</button></li>
-								</div>
-
-							<? endforeach; ?>
-							
-							<label>Add new translation</label>
-							<div class="form-inline">
-								<div class="form-group">
-
-									<select class="form-control" name="cbo_add_translation">
-										<? foreach($languages as $language): ?>
-										<option value="<?=$language->lang_code?>"><?=$language->name?></option>
-										<? endforeach; ?>
-									</select>
-
-								</div>
-
-								<button type="submit" class="btn btn-default" name="btn_add_translation" value="Add">Add</button>
-							</div>
-							
-						</div>
-					</div>
+			</div>
+			<? endif; ?>
+			
+			<? if(array_key_exists('translation', $modules)): ?>
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h4 class="panel-title">
+						<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+							Translations
+						</a>
+					</h4>
 				</div>
-				<? endif ?>
 				
-				<? if(array_key_exists('postas', $modules) && $post_as != null): ?>
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<h4 class="panel-title">
-							<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
-								Post as
-							</a>
-						</h4>
-					</div>
-					
-					<div id="collapseFour" class="panel-collapse collapse">
-						<div class="panel-body">
-							
-							<div class="form-group">
-								<select class="form-control" name="cbo_post_as">
-									<optgroup label="You">
-									<option value="<?=$this->session->userdata('member_id')?>"><?=$this->session->userdata('knownas')?></option>
-									</optgroup>
+				<div id="collapseThree" class="panel-collapse collapse in">
+					<div class="panel-body">
+						
+						<? 
+							$translations = explode(',', $resource->translations);
 
-									<optgroup label="Others">
-									<? foreach($post_as as $member): ?>
-									<option value="<?=$member->member_id?>"<? if($member->member_id == $resource->member_id){ echo ' selected';} ?>><?=$member->knownas?></option>
+							foreach($translations as $translation):
+						?>
+
+							<div class="form-group">
+								<?=strtoupper($translation)?>
+								<button type="submit" class="btn btn-default btn-xs btn-warning" name="btn_translation_edit" value="<?=$translation?>">Edit</button>
+								<button type="submit" class="btn btn-default btn-xs btn-danger btn_translation_delete" name="btn_translation_delete" value="<?=$translation?>">Delete</button></li>
+							</div>
+
+						<? endforeach; ?>
+						
+						<label>Add new translation</label>
+						<div class="form-inline">
+							<div class="form-group">
+
+								<select class="form-control" name="cbo_add_translation">
+									<? foreach($languages as $language): ?>
+									<option value="<?=$language->lang_code?>"><?=$language->name?></option>
 									<? endforeach; ?>
-									</optgroup>
 								</select>
+
 							</div>
-							
+
+							<button type="submit" class="btn btn-default" name="btn_add_translation" value="Add">Add</button>
 						</div>
+						
 					</div>
 				</div>
-				<? endif; ?>
+			</div>
+			<? endif ?>
+			
+			<? /* Looky looky: http://timschlechter.github.io/bootstrap-tagsinput/examples/ */?>
+			<? if (array_key_exists('tag', $modules)): ?>
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h4 class="panel-title">
+						<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseFive">
+							Tags
+						</a>
+					</h4>
+				</div>
 				
-				<? /* Looky looky: http://timschlechter.github.io/bootstrap-tagsinput/examples/ */?>
-				<? if (array_key_exists('tag', $modules)): ?>
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<h4 class="panel-title">
-							<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseFive">
-								Tags
-							</a>
-						</h4>
-					</div>
-					
-					<div id="collapseFive" class="panel-collapse collapse in">
-						<div class="panel-body">
-							
-							
-							<?
-							$tags = '';
-							if($resource_tags != null)
+				<div id="collapseFive" class="panel-collapse collapse in">
+					<div class="panel-body">
+						
+						
+						<?
+						$tags = '';
+						if($resource_tags != null)
+						{
+							foreach($resource_tags as $tag)
 							{
-								foreach($resource_tags as $tag)
+								if($tag->tag_name != '')
 								{
-									if($tag->tag_name != '')
-									{
-										$tags .= ucfirst(trim($tag->tag_name)) . ',';
-									}
+									$tags .= ucfirst(trim($tag->tag_name)) . ',';
 								}
 							}
-							?>
+						}
+						?>
 
-							
-								<input type="text" class="form-control" value="<?=$tags?>" data-role="tagsinput" id="tags" name="txt_tags" />
-							
-							
-						</div>
+						
+							<input type="text" class="form-control" value="<?=$tags?>" data-role="tagsinput" id="tags" name="txt_tags" />
+						
+						
 					</div>
 				</div>
-				<?endif?>
-
 			</div>
+			<?endif?>
+
+
+			<? if(array_key_exists('additionals', $modules) && $post_as != null): ?>
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h4 class="panel-title">
+						<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
+							Additional options
+						</a>
+					</h4>
+				</div>
+				
+				<div id="collapseFour" class="panel-collapse collapse">
+					<div class="panel-body">
+						
+						<? if(in_array('post_as', $modules['additionals'])): ?>
+						<div class="form-group">
+							<label>Post as</label>
+							<select class="form-control" name="cbo_post_as">
+								<optgroup label="You">
+								<option value="<?=$this->session->userdata('member_id')?>"><?=$this->session->userdata('knownas')?></option>
+								</optgroup>
+
+								<optgroup label="Others">
+								<? foreach($post_as as $member): ?>
+								<option value="<?=$member->member_id?>"<? if($member->member_id == $resource->member_id){ echo ' selected';} ?>><?=$member->knownas?></option>
+								<? endforeach; ?>
+								</optgroup>
+							</select>
+						</div>
+						<? endif; ?>
+
+						<? /*
+						<? if(in_array('comments', $modules['additionals'])): ?>
+						<div class="form-group">
+							<div class="checkbox">
+								<label>
+									<input type="checkbox"> Allow comments
+								</label>
+							</div>
+						</div>
+						<? endif;?>
+
+						<? if(in_array('featured', $modules['additionals'])): ?>
+						<div class="form-group">
+							<div class="checkbox">
+								<label>
+									<input type="checkbox"> Feature on front page
+								</label>
+							</div>
+						</div>
+						<? endif;?>
+						*/ ?>
+						
+					</div>
+				</div>
+			</div>
+			<? endif; ?>
 
 		</div>
 
