@@ -31,7 +31,7 @@ $(document).ready(function() {
 	$('.btn_upload_new_image').click(function(e){
 		e.preventDefault();
 
-		var modal = '<div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close modal-close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title">Upload image</h4></div><div class="modal-body"> <div class="form-group"><label>Image</label><input type="file" class="form-control" /><p class="help-block">JPG or GIF only please.</p></div> <div class="form-group"><label>Image title</label><input type="text" class="form-control" /></div></div> <div class="modal-footer"><button type="submit" class="btn btn-success" name="btn_upload_image" value="TRUE">Upload image</button></div></div></div></div>';
+		var modal = '<div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close modal-close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title">Upload image</h4></div><div class="modal-body"> <div class="form-group"><label>Image</label><input type="file" class="form-control" name="file_image" /><p class="help-block">JPG or GIF only please.</p></div></div> <div class="modal-footer"><button type="submit" class="btn btn-success" name="btn_upload_image" value="TRUE">Upload image</button></div></div></div></div>';
 
 		$(modal).insertAfter(this).fadeIn();
 	});

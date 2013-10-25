@@ -215,3 +215,4 @@ pip-log.txt
 .mr.developer.cfg
 
 application/config/database.php
+assets/uploads

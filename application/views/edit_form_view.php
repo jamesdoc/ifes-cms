@@ -1,6 +1,19 @@
-<form role="form" method="post" id="edit_form">
+<form role="form" method="post" id="edit_form" enctype="multipart/form-data">
 
 	<div class="row">
+
+		<? if(isset($error)):?>
+		<div class="col-md-12">
+			<div class="alert alert-block alert-danger">
+				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+				<h4>Uh oh...</h4>
+				
+				<? foreach($error as $err): ?>
+				<p><?=$err?></p>
+				<? endforeach;?>
+			</div>
+		</div>
+		<?endif;?>
 
 		<div class="col-md-8">
 			
@@ -38,10 +51,12 @@
 						<div class="form-group">
 							<label>Insert image</label>
 							<div>
-								
-								<? for($i=0; $i<10; $i++): ?><button type="submit" class="image_btn" style="background-image: url('http://ifesworld.org/assets/uploads/blogs/wsd_cover.jpg');" name="btn_insert_image" value="wsd_cover.jpg"></button><? endfor; ?>
 
-								<a href="#" class="btn btn-default btn_upload_new_image">Upload new...</a>
+								<? if(count($images) > 0): foreach($images as $image): ($this->config->item('is_local') == TRUE ? $url = site_url($image) : $url = 'http://media.ifesworld.org/' . $image); ?><button type="submit" class="image_btn" style="background-image: url('<?=$url?>');" name="btn_insert_image" value="<?=$url?>"></button><? endforeach; endif; ?>
+
+								<div class="input-group">
+									<a href="#" class="btn btn-default btn_upload_new_image">Upload new...</a>
+								</div>
 
 							</div>
 						</div>

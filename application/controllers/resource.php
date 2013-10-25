@@ -22,7 +22,14 @@ class Resource extends MY_Controller {
 		if ($this->input->post())
 		{
 			$return = $this->_post_handler($resource_id);
+
+			if(isset($return['image_error']))
+			{
+				$data['error'][] = $return['image_error'];
+			}
 		}
+
+
 
 		$this->load->model(array('account_model','language_model','resource_model'));
 
@@ -46,7 +53,6 @@ class Resource extends MY_Controller {
 		$data['resource_tags'] = $this->resource_model->select_resource_tags($resource_id);
 		$data['languages'] = $this->language_model->select_languages();
 		$data['post_as'] = $this->account_model->select_user_post_as($this->session->userdata('member_id'));
-
 
 
 		$data['javascript'] = array('bootstrap-datepicker','bootstrap-tagsinput','typeahead.min');
@@ -80,6 +86,13 @@ class Resource extends MY_Controller {
 				$this->ckConfig['forcePasteAsPlainText'] = true;
 				$this->ckConfig['height'] = '150px';
 				break;
+		}
+
+		// If image module required then get some recent images...
+		if(array_key_exists('content', $data['modules']) && in_array('image', $data['modules']['content']))
+		{
+			$this->load->model('image_model');
+			$data['images'] = $this->image_model->select_recent_images(10);
 		}
 
 		$data['ckeditor'] = array('id' => 'txt_body', 'path' => 'assets/js/ckeditor', 'config' => $this->ckConfig);
@@ -146,7 +159,6 @@ class Resource extends MY_Controller {
 		if ($this->input->post('btn_confirm_resource_delete'))
 		{
 			$this->resource_model->update_resource_status($resource_id, '-1');
-			//$this->resource_model->delete_resource($resource_id);
 
 			redirect($this->uri->segment(1));
 		}
@@ -170,14 +182,21 @@ class Resource extends MY_Controller {
 			$return['lang_code'] = $this->input->post('cbo_add_translation');
 		}
 
-		if ($this->input->post('btn_tag_add'))
+		if ($this->input->post('btn_upload_image'))
 		{
+			$this->load->model('image_model');
 
-		}
+			$image = $this->image_model->upload_image();
 
-		if ($this->input->post('btn_tag_delete'))
-		{
-
+			if(is_array($image))
+			{
+				$path = $this->config->item('upload_path') . 'originals/' . $image['file_name'];
+				$this->image_model->resize_image($path);
+			}
+			else
+			{
+				$return['image_error'] = $image;
+			}
 		}
 
 		return $return;

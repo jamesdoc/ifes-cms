@@ -238,11 +238,8 @@ class Resource_model extends CI_Model
 
 		if($this->input->post('btn_insert_image'))
 		{
-			$translation['body'] = '<p><img alt="" class="pull img-centre" src="http://ifesworld.org/assets/uploads/blogs/' . $this->input->post('btn_insert_image') . '" /></p>' . $translation['body'];
+			$translation['body'] = '<p><img alt="" class="pull img-centre" src="' . $this->input->post('btn_insert_image') . '" /></p>' . $translation['body'];
 		}
-
-		//print_r($this->input->post());
-		//exit;
 
 		// Set vanity_url
 		if ($translation['title'] != null AND ($current->status != 1 OR $current->vanity_url == '' OR $current->translation_status != 1))

@@ -1,5 +1,15 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+
+$config['is_local'] = TRUE;
+$config['upload_path'] = 'assets/uploads/';
+
+/*
+$config['is_local'] = FALSE;
+$config['upload_path'] = 'assets/uploads/';
+*/
+
+
 /*
 |--------------------------------------------------------------------------
 | Base Site URL
