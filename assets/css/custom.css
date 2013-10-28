@@ -1,0 +1,13 @@
+.jumbotron 
+{
+	background-image: url('../images/robot_grey_top.png');
+	background-repeat: no-repeat;
+	background-position: 5% center;
+
+	padding-left: 10%;
+}
+
+	.jumbotron .container
+	{
+		padding-left: 120px;
+	}
