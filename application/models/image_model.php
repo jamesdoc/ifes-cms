@@ -8,9 +8,18 @@ class Image_model extends CI_Model {
 		$images_dir = $this->config->item('upload_path');
 
 		$images = glob($images_dir . '*.{jpg,jpeg,png,gif}', GLOB_BRACE);
-		usort($images, create_function('$a,$b', 'return filemtime($b) - filemtime($a);'));
 
-		return array_slice($images, 0, $count);
+		if(is_array($images))
+		{
+			usort($images, create_function('$a,$b', 'return filemtime($b) - filemtime($a);'));
+
+			$image_array = array_slice($images, 0, $count);
+
+			unset($images);
+
+			return $image_array = str_replace($images_dir, "", $image_array);
+		}
+
 	}
 
 	
@@ -31,7 +40,7 @@ class Image_model extends CI_Model {
 		}
 		else
 		{
-			$config['upload_path'] = realpath($this->config->item('upload_path'));
+			$config['upload_path'] = realpath($this->config->item('upload_path').$path);
 		}
 		
 		// Upload image
@@ -53,9 +62,6 @@ class Image_model extends CI_Model {
 
 		$path = $this->config->item('upload_path') . $path;
 		
-		chmod($image, 0777);
-		chmod($path, 0777);
-				
 		// Do some set up
 		$config = array(
 			'source_image'	=> $image,
@@ -67,9 +73,6 @@ class Image_model extends CI_Model {
 		
 		$this->load->library('image_lib',$config);
 		$this->image_lib->resize();
-		
-		chmod($image, 0644);
-		chmod($path, 0644);
 
 		return true;
 	}

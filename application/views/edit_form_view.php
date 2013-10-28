@@ -48,7 +48,7 @@
 							<label>Insert image</label>
 							<div>
 
-								<? if(count($images) > 0): foreach($images as $image): ($this->config->item('is_local') == TRUE ? $url = site_url($image) : $url = 'http://media.ifesworld.org/' . $image); ?><button type="submit" class="image_btn" style="background-image: url('<?=$url?>');" name="btn_insert_image" value="<?=$url?>"></button><? endforeach; endif; ?>
+								<? if(count($images) > 0): foreach($images as $image): $url = $this->config->item('media_server') . $image; ?><button type="submit" class="image_btn" style="background-image: url('<?=$url?>');" name="btn_insert_image" value="<?=$url?>"></button><? endforeach; endif; ?>
 
 								<div class="input-group">
 									<a href="#" class="btn btn-default btn_upload_new_image">Upload new...</a>

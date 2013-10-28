@@ -200,7 +200,7 @@ class Resource extends MY_Controller {
 		{
 			$this->load->model('image_model');
 
-			$image = $this->image_model->upload_image();
+			$image = $this->image_model->upload_image('originals');
 
 			if(is_array($image))
 			{

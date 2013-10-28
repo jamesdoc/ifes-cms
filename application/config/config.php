@@ -3,10 +3,12 @@
 
 $config['is_local'] = TRUE;
 $config['upload_path'] = 'assets/uploads/';
+$config['media_server'] = 'http://cms.ifesworld.dev/assets/uploads/';
 
 /*
 $config['is_local'] = FALSE;
-$config['upload_path'] = 'assets/uploads/';
+$config['upload_path'] = '../../media/httpdocs/image/blog/';
+$config['media_server'] = 'http://media.ifesworld.org/image/blog/'
 */
 
 
