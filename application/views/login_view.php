@@ -1,4 +1,15 @@
-<form role="form" method="post">
+<? if(isset($error)): ?>
+<div class="col-md-12">
+		<div class="alert alert-block alert-danger">
+			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+			<h4>Uh oh...</h4>
+			
+			<p>Unauthorised access</p>
+		</div>
+	</div>
+<? endif ?>
+
+<form role="form" method="post" class="col-md-12">
 
 	<div class="form-group">
 		<label for="exampleInputEmail1">Email address</label>

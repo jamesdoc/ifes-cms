@@ -11,6 +11,10 @@ class Account_model extends CI_Model
 		$this->db->from('individual_login');
 		$this->db->join('individual', 'individual_login.member_id = individual.member_id');
 		$this->db->join('member_contact_details', 'individual_login.member_id = member_contact_details.member_id');
+		$this->db->join('gateway', 'individual_login.member_id = gateway.member_id');
+
+		$this->db->where('gateway.module_id', '1');
+		$this->db->where('gateway.permission_level', '5');
 		
 		if(strstr($this->input->post('username'),'@'))
 		{

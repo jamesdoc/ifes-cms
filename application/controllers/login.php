@@ -9,6 +9,9 @@ class Login extends CI_Controller {
 		{
 			$this->load->model('account_model');
 			$this->account_model->check_login($this->input->post('txt_user'), $this->input->post('txt_pass'));
+
+			// If we get this far then the login has failed
+			$data['error'] = TRUE;
 		}
 
 		$data['view'] = 'login';
