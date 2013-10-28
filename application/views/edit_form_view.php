@@ -311,12 +311,12 @@
 						</div>
 						<? endif; ?>
 
-						<? /*
+						
 						<? if(in_array('comments', $modules['additionals'])): ?>
 						<div class="form-group">
 							<div class="checkbox">
 								<label>
-									<input type="checkbox"> Allow comments
+									<input type="checkbox" name="chk_discussion" value="1"<? if($resource->discussion == 1){echo ' checked';} ?>> Allow comments
 								</label>
 							</div>
 						</div>
@@ -326,12 +326,11 @@
 						<div class="form-group">
 							<div class="checkbox">
 								<label>
-									<input type="checkbox"> Feature on front page
+									<input type="checkbox" name="chk_featured" value="1"<? if($resource->featured == 1){echo ' checked';} ?>> Feature on front page
 								</label>
 							</div>
 						</div>
 						<? endif;?>
-						*/ ?>
 						
 					</div>
 				</div>
@@ -343,11 +342,10 @@
 	</div>
 
 </form>
-
 <? /*
 <hr />
 
 <pre>
 <?print_r($resource);?>
 </pre>
-*/?>
+*/ ?>

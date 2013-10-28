@@ -66,7 +66,13 @@ class Resource_model extends CI_Model
 		$this->db->set('type', $type);
 		$this->db->set('published_dt', date('Y-m-d H:i:s'));
 		$this->db->set('status', 0);
+		$this->db->set('discussion', 1);
 		
+		if($type == 'prayer')
+		{
+			$this->db->set('featured', 1)
+		}
+
 		$this->db->insert('resource'); 
 		
 		$resource_id = $this->db->insert_id();
@@ -139,7 +145,7 @@ class Resource_model extends CI_Model
 	function select_resource_for_edit($resource_id, $lang_code = null)
 	{
 
-		$this->db->select('resource.resource_id, resource.member_id, resource.type, resource.status, resource.discussion, resource.published_dt, resource.end_dt, resource_translation.resource_translation_id, resource_translation.lang_code, resource_translation.title, resource_translation.body, resource_translation.link, resource_translation.desc_long, resource_translation.desc_short, resource_translation.vanity_url, resource_translation.status AS translation_status');
+		$this->db->select('resource.resource_id, resource.member_id, resource.type, resource.status, resource.discussion, resource.published_dt, resource.end_dt, resource.featured, resource_translation.resource_translation_id, resource_translation.lang_code, resource_translation.title, resource_translation.body, resource_translation.link, resource_translation.desc_long, resource_translation.desc_short, resource_translation.vanity_url, resource_translation.status AS translation_status');
 
 		$this->db->select("(SELECT GROUP_CONCAT(lang_code) translations FROM resource_translation WHERE resource_id = $resource_id) AS translations", false);
 
@@ -254,7 +260,7 @@ class Resource_model extends CI_Model
 			$input = date('Y-m-d', strtotime($this->input->post('week_begin')));
 			$wb = date('Y-m-d', strtotime( ('Monday' == date('l', strtotime($input)) ? 'Monday this week' : 'Last Monday'), strtotime($input)));
 			
-			if ($current->type == 'prayer'/* && featured = true */)
+			if ($current->type == 'prayer' && $current->featured == 1)
 			{
 				if($this->check_type_date_conflict($wb, $current->type, $current->resource_id) == 0)
 				{
@@ -279,6 +285,24 @@ class Resource_model extends CI_Model
 			$resource['member_id'] = $this->session->userdata('member_id');
 		}
 
+		if ($this->input->post('chk_discussion'))
+		{
+			$resource['discussion'] = 1;
+		}
+		else
+		{
+			$resource['discussion'] = 0;
+		}
+
+		if ($this->input->post('chk_featured'))
+		{
+			$resource['featured'] = 1;
+		}
+		else
+		{
+			$resource['featured'] = 0;
+		}
+
 		$resource['edited_dt'] = date('Y-m-d H:i:s');
 
 		$this->db->where('resource_id', $resource_id);
@@ -286,7 +310,6 @@ class Resource_model extends CI_Model
 
 		//------
 
-		
 
 		$translation = array
 		(
