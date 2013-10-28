@@ -70,7 +70,7 @@ class Resource_model extends CI_Model
 		
 		if($type == 'prayer')
 		{
-			$this->db->set('featured', 1)
+			$this->db->set('featured', 1);
 		}
 
 		$this->db->insert('resource'); 
