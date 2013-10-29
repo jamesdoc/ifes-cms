@@ -19,7 +19,7 @@
             </tr>
           </thead>
 
-      <? foreach($records as $record): ?>
+      <? if(count($records) > 0): foreach($records as $record): ?>
         <tr>
 
           <td><a href="<?=site_url($type . '/edit/' . $record->resource_id)?>" class="btn btn-primary btn-sm">Edit</a></td>
@@ -28,9 +28,11 @@
           <td><?=word_limiter(strip_tags($record->body), 40)?></td>
           
         </tr>
-      <? endforeach; ?>
+      <? endforeach; endif; ?>
 
        </table>
+
+       <?=$this->pagination->create_links();?>
 
     </div>
 

@@ -132,14 +132,26 @@ class Resource extends MY_Controller {
 		
 		$this->load->model(array('resource_model'));
 
+		$this->load->library(array('pagination'));
+
 		$this->load->helper(array('text'));
 
 		$data['view'] = 'list';
 		$data['title'] = 'IFES CMS: ' . $type;
 		$data['type'] = $type;
 
+		$pagination_config['base_url'] = site_url($type . '?');
+		$pagination_config['total_rows'] = $this->resource_model->select_resource_count($type);
+		$pagination_config['per_page'] = 20;
+		$pagination_config['use_page_numbers'] = TRUE;
+		$pagination_config['page_query_string'] = TRUE;
+		$pagination_config['query_string_segment'] = 'page';
 
-		$data['records'] = $this->resource_model->select_basics($type);
+		$this->pagination->initialize($pagination_config);
+
+		$page = $this->input->get('page', TRUE);
+
+		$data['records'] = $this->resource_model->select_basics($type, $pagination_config['per_page'], ($page-1)*$pagination_config['per_page']);
 
 		$this->load->view('container', $data);
 
