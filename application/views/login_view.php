@@ -9,7 +9,7 @@
 	</div>
 <? endif ?>
 
-<form role="form" method="post" class="col-md-12">
+<form role="form" method="post" class="col-md-offset-4 col-md-4">
 
 	<div class="form-group">
 		<label for="exampleInputEmail1">Email address</label>
@@ -22,5 +22,9 @@
 	</div>
 
 	<button type="submit" class="btn btn-lg btn-primary btn-block">Sign in</button>
+
+	<hr />
+
+	<p><small>Forgotten your password? <a href="http://ifesworld.org/account/resetpassword" target="_blank">Reset it</a>.</small></p>
 
 </form>

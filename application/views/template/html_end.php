@@ -4,7 +4,7 @@
 <footer class="footer">
 	<div class="container">
 
-		<p>© <?=date('Y')?> IFES, une organisation déclarée à Lausanne, Suisse. IFES is a registered charity in England and Wales (247919), and a limited company (876229).</p>
+		<p>© <?=date('Y')?> <a href="http://ifesworld.org" target="_blank" title="International Fellowship of Evangelical Students">IFES</a>, une organisation déclarée à Lausanne, Suisse. IFES is a registered charity in England and Wales (247919), and a limited company (876229).</p>
 		
 		<ul class="footer-links">
 			<li>Built on <a href="http://getbootstrap.com" target="_blank">Bootstrap</a></li>
