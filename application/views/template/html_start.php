@@ -9,6 +9,8 @@
 
   <title><?=$title?></title>
 
+  <link rel="icon" href="<?=site_url('favicon.ico')?>" type="image/x-icon">
+
   <!-- Bootstrap core CSS -->
   <link href="<?=site_url('assets/css/bootstrap.css')?>" rel="stylesheet">
   <link href="<?=site_url('assets/css/custom.css')?>" rel="stylesheet">
