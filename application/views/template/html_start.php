@@ -37,13 +37,14 @@
       <a class="navbar-brand" href="<?=site_url()?>"><img src="<?=site_url('assets/images/logo.png')?>" height="18" /></a>
     </div>
     <div class="collapse navbar-collapse">
+      <? if($this->session->userdata('member_id') != null): ?>
       <ul class="nav navbar-nav">
         <li><a href="<?=site_url()?>">Home</a></li>
         <li><a href="<?=site_url('blog')?>">Blog</a></li>
         <li><a href="<?=site_url('prayer')?>">Prayer</a></li>
         <li><a href="<?=site_url('event')?>">Events</a></li>
       </ul>
-
+      <?endif;?>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="http://ifesworld.org" target="_blank">ifesworld.org &raquo;</a></li>
       </ul>
