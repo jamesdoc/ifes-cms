@@ -338,6 +338,16 @@ class Resource_model extends CI_Model
 			'status'		=> 1
 		);
 
+		$this->load->library('stripattributes');
+		$sa = new stripattributes();
+		$sa->allow = array( 'id', 'class');
+		$sa->exceptions = array( 
+			'img' => array( 'src', 'alt' ),
+			'a' => array( 'href', 'title', 'target' )
+		);
+
+		$translation['body'] = $sa->strip( $translation['body'] );
+
 		if($translation['title'] == ""){$translation['title'] = null;}
 
 		if($this->input->post('btn_insert_image'))
