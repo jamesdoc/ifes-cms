@@ -42,9 +42,7 @@
       </div>
 
       <div class="panel-body">
-        <p><a href="#">Blog post</a>
-        <p><a href="#">Prayer point</a>
-        <p><a href="#">Event</a>
+        <a href="<?=site_url($type . '/new')?>" class="btn btn-primary btn-block">New <?=ucfirst($type)?></a>
       </div>
     </div>
 
@@ -54,9 +52,9 @@
       </div>
 
       <div class="panel-body">
-        <p><a href="#">Blogs</a>
-        <p><a href="#">Prayer Diary</a>
-        <p><a href="#">Events</a>
+        <p><a href="<?=site_url('blog')?>">Blogs</a>
+        <p><a href="<?=site_url('prayer')?>">Prayer Diary</a>
+        <p><a href="<?=site_url('event')?>">Events</a>
       </div>
     </div>
 
