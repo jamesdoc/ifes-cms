@@ -12,13 +12,11 @@ $(document).ready(function() {
 			if(unsaved_changes == true) { return 'There are unsaved changes.'; }
 		});
 		
-
 		$('.input-append.date').datepicker({weekStart: 1, orientation: "top auto", autoclose: true, calendarWeeks: true});
 
 		$('#tags').tagsinput('input').typeahead({
-			prefetch: 'http://cms.ifesworld.dev/resource/tags'
+			prefetch: window.location.protocol + '//' + document.location.hostname + '/resource/tags'
 		}).bind('typeahead:selected', $.proxy(function (obj, datum) { 
-			console.log(obj);
 			this.tagsinput('add', datum.value);
 			this.tagsinput('input').typeahead('setQuery', '');
 		}, $('#tags')));
