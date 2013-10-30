@@ -8,7 +8,8 @@
   <meta name="author" content="">
   <meta name="robots" content="noindex">
 
-  <title><?=$title?></title>
+
+  <title><?=(isset($title) ? $title : 'IFES CMS') ?></title>
 
   <link rel="icon" href="<?=site_url('favicon.ico')?>" type="image/x-icon">
 
