@@ -56,7 +56,7 @@ class Stripattributes
 		}
 		
 		# Return the XML if there were no attributes to remove
-		if( !$nodes[0] )
+		if( count($nodes) == 0 || !$nodes[0] )
 			return $this->str;
 		else
 			return $nodes;
