@@ -47,6 +47,7 @@
         <li><a href="<?=site_url('blog')?>">Blog</a></li>
         <li><a href="<?=site_url('prayer')?>">Prayer</a></li>
         <li><a href="<?=site_url('event')?>">Events</a></li>
+        <li><a href="<?=site_url('profile')?>">Profiles</a></li>
       </ul>
       <?endif;?>
       <ul class="nav navbar-nav navbar-right">

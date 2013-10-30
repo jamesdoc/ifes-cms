@@ -57,6 +57,7 @@
         <p><a href="<?=site_url('blog')?>">Blogs</a>
         <p><a href="<?=site_url('prayer')?>">Prayer Diary</a>
         <p><a href="<?=site_url('event')?>">Events</a>
+        <p><a href="<?=site_url('profile')?>">Profiles</a>
       </div>
     </div>
 
