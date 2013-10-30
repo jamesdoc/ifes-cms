@@ -16,7 +16,7 @@ class Account_model extends CI_Model
 		$this->db->where('gateway.module_id', '1');
 		$this->db->where('gateway.permission_level', '5');
 		
-		if(strstr($this->input->post('username'),'@'))
+		if(strstr($username,'@'))
 		{
 			$this->db->where('email_primary', $username);
 		}
@@ -34,7 +34,6 @@ class Account_model extends CI_Model
 		}
 
 		$auth = $query->row();
-
 		// If  hash doesn't match password field then bad password
 		if (hash('sha256',$auth->username . $password) != $auth->password)
 		{
