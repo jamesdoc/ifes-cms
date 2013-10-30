@@ -76,13 +76,29 @@ class Resource_model extends CI_Model
 		$this->db->insert('resource'); 
 		
 		$resource_id = $this->db->insert_id();
+
+		// If it is a profile then we are going to give it a name from the get go.
+		if ($type == 'profile')
+		{
+			$this->load->model('locale_model');
+			$locale = $this->locale_model->select_locale($this->input->post('cbo_locale'));
+			$this->db->set('title', $locale[0]->locale_name);
+		}
 		
 		$this->db->set('resource_id',$resource_id);
 		$this->db->set('lang_code','en');
 		$this->db->set('status', 0);
 		$this->db->set('datetime', date('Y-m-d H:i:s'));
 		
-		$this->db->insert('resource_translation'); 
+		$this->db->insert('resource_translation');
+
+		// If it is a profile then we need to tag it up with the correct locale code
+		if ($type == 'profile')
+		{
+			$this->db->set('page_id', $resource_id);
+			$this->db->set('tag_id', $this->input->post('cbo_locale'));
+			$this->db->insert('tag_link');
+		}
 		
 		redirect($type . '/edit/' . $resource_id);
 		
@@ -328,16 +344,16 @@ class Resource_model extends CI_Model
 
 		//------
 
-
 		$translation = array
 		(
-			'title'			=> $this->input->post('txt_title'),
+			'title'			=> strip_tags(trim($this->input->post('txt_title'))),
 			'body'			=> $this->input->post('txt_body'),
-			'link'			=> prep_url($this->input->post('txt_link')),
-			'desc_short'	=> $this->input->post('txt_short_description'),
+			'link'			=> prep_url(trim($this->input->post('txt_link'))),
+			'desc_short'	=> strip_tags(trim($this->input->post('txt_short_description'))),
 			'status'		=> 1
 		);
 
+		// See: http://semlabs.co.uk/journal/php-strip-attributes-class-for-xml-and-html
 		$this->load->library('stripattributes');
 		$sa = new stripattributes();
 		$sa->allow = array( 'id', 'class');

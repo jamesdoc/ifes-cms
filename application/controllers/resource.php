@@ -99,6 +99,10 @@ class Resource extends MY_Controller {
 				$this->ckConfig['forcePasteAsPlainText'] = true;
 				$this->ckConfig['height'] = '150px';
 				break;
+			case 'profile':
+				$data['modules'] = array('content' => array('title','content','short_description'),'publish' => TRUE,'translation' => TRUE);
+				$this->ckConfig['toolbar'] = array(array('Link','Unlink'),array('Bold', 'Italic','Underline', 'Strike'),array('NumberedList','BulletedList','Blockquote'),array('Styles'),array('Source'));
+				break;
 		}
 
 		// If image module required then get some recent images...
@@ -121,9 +125,32 @@ class Resource extends MY_Controller {
 			redirect();
 		}
 		
-		$this->load->model('resource_model');
-		
-		$this->resource_model->insert_resource($type);
+		if($type == 'profile')
+		{
+			
+
+			if ($this->input->post())
+			{
+				$this->load->model('resource_model');
+				$this->resource_model->insert_resource($type);
+			}
+
+			$this->load->model('locale_model');
+
+			$data['locale_list'] = $this->locale_model->select_missing_profile_locales();
+
+			$data['view'] = 'profile_create';
+			$data['title'] = 'IFES CMS: Create profile';
+
+			$this->load->view('container', $data);
+		}
+		else
+		{
+			$this->load->model('resource_model');
+			
+			$this->resource_model->insert_resource($type);
+		}
+
 		
 	}
 

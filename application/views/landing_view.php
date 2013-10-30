@@ -10,24 +10,35 @@
 
 <div class="row">
 
-<div class="col-lg-4">
-  <h2>Blog post</h2>
-  <p><a class="btn btn-primary btn-block" href="blog/new">New blog post &raquo;</a></p>
-  <p><a class="btn btn-default btn-block" href="blog">View / edit / delete &raquo;</a></p>
-  <p>Donec id elit non mi porta gravida at eget metus. ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+  <div class="col-lg-4">
+    <h2>Blog post</h2>
+    <p><a class="btn btn-primary btn-block" href="blog/new">New blog post &raquo;</a></p>
+    <p><a class="btn btn-default btn-block" href="blog">View / edit / delete &raquo;</a></p>
+  </div>
+
+  <div class="col-lg-4">
+    <h2>Prayer Diary</h2>
+    <p><a class="btn btn-block btn-info" href="prayer/new">New prayer item &raquo;</a></p>
+    <p><a class="btn btn-default btn-block" href="prayer">View / edit / delete &raquo;</a></p>
+    <p>Add weekly prayer points to the IFES prayer diary. Visible at <a href="http://ifesworld.org/pray">ifesworld.org/pray</a>.</p>
+  </div>
+
+  <div class="col-lg-4">
+    <h2>Event</h2>
+    <p><a class="btn btn-block btn-info" href="event/new">New event &raquo;</a></p>
+    <p><a class="btn btn-default btn-block" href="event">View / edit / delete &raquo;</a></p>
+    <p>International, regional or movement events.</p>
+  </div>
+
 </div>
 
-<div class="col-lg-4">
-  <h2>Prayer Diary</h2>
-  <p><a class="btn btn-block btn-info" href="prayer/new">New prayer item &raquo;</a></p>
-  <p><a class="btn btn-default btn-block" href="prayer">View / edit / delete &raquo;</a></p>
-  <p>Weekly prayer points displayed at ifesworld.org/pray, also made avalible through PrayerMate.</p>
-</div>
+<div class="row">
 
-<div class="col-lg-4">
-  <h2>Event</h2>
-  <p><a class="btn btn-block btn-info" href="event/new">New event &raquo;</a></p>
-  <p><a class="btn btn-default btn-block" href="event">View / edit / delete &raquo;</a></p>
-  <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-</div>
-</div>
+  <div class="col-lg-4">
+    <h2>Profiles</h2>
+    <p><a class="btn btn-info btn-block" href="profile/new">New country profile &raquo;</a></p>
+    <p><a class="btn btn-default btn-block" href="profile">View / edit / delete &raquo;</a></p>
+    <p>Create or update the content on main country pages.</p>
+  </div>
+
+</div
