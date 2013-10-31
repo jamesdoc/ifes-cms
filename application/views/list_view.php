@@ -74,14 +74,10 @@
         <p><a href="<?=site_url('prayer')?>">Prayer Diary</a>
         <p><a href="<?=site_url('event')?>">Events</a>
         <p><a href="<?=site_url('profile')?>">Profiles</a>
+        <p><a href="<?=site_url('video')?>">Video</a>
       </div>
     </div>
 
   </div>
 
 </div>
-
-<hr />
-
-<pre>
-<?print_r($record)?>

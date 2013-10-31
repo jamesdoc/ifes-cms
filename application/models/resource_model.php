@@ -195,7 +195,7 @@ class Resource_model extends CI_Model
 	function select_resource_for_edit($resource_id, $lang_code = null)
 	{
 
-		$this->db->select('resource.resource_id, resource.member_id, resource.type, resource.status, resource.discussion, resource.published_dt, resource.end_dt, resource.featured, resource_translation.resource_translation_id, resource_translation.lang_code, resource_translation.title, resource_translation.body, resource_translation.link, resource_translation.desc_long, resource_translation.desc_short, resource_translation.vanity_url, resource_translation.status AS translation_status');
+		$this->db->select('resource.resource_id, resource.member_id, resource.type, resource.status, resource.discussion, resource.published_dt, resource.end_dt, resource.featured, resource_translation.resource_translation_id, resource_translation.lang_code, resource_translation.title, resource_translation.body, resource_translation.link, resource_translation.desc_short, resource_translation.vanity_url, resource_translation.status AS translation_status');
 
 		$this->db->select("(SELECT GROUP_CONCAT(lang_code) translations FROM resource_translation WHERE resource_id = $resource_id) AS translations", false);
 
@@ -391,6 +391,19 @@ class Resource_model extends CI_Model
 		if ($translation['title'] != null AND ($current->status != 1 OR $current->vanity_url == '' OR $current->translation_status != 1))
 		{
 			$translation['vanity_url'] = $this->create_vanity_url($translation['title']);
+		}
+
+		// Do some work if video link around
+		if ($current->type == 'video')
+		{
+			// If there is a vimeo or youtube link go get a thumbnail
+			if(array_strpos($translation['link'], array('youtube','vimeo')) !== false)
+			{
+				$translation['thumbnail'] = get_video_thumbnail($translation['link']);
+			// Otherwise ditch the link
+			} else {
+				$translation['link'] = null;
+			}
 		}
 
 		$this->db->where('resource_id', $resource_id);

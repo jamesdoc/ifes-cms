@@ -41,4 +41,11 @@
     <p>Create or update the content on main country pages.</p>
   </div>
 
+  <div class="col-lg-4">
+    <h2>Video</h2>
+    <p><a class="btn btn-block btn-info" href="video/new">New video &raquo;</a></p>
+    <p><a class="btn btn-default btn-block" href="video">View / edit / delete &raquo;</a></p>
+    <p>Upload or amend a video in the media section</p>
+  </div>
+
 </div

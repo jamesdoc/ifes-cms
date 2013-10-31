@@ -34,6 +34,58 @@
 			return $clean;
 		}
 	}
+
+
+	if(!function_exists('get_video_thumbnail')){
+		function get_video_thumbnail($url)
+		{
+
+
+			if(strpos($url, 'youtube') !== false)
+			{
+
+				parse_str( parse_url( $url, PHP_URL_QUERY ), $a );
+
+				if(isset($a) && $a != null){
+
+					$url = "http://gdata.youtube.com/feeds/api/videos/" . $a['v'] . "?v=2&prettyprint=true&alt=jsonc";
+
+					$json = file_get_contents($url);
+
+					$json = json_decode($json);
+
+					return $json->data->thumbnail->hqDefault;
+
+				}
+				
+			}
+			else if(strpos($url, 'vimeo') !== false)
+			{
+				
+				preg_match('/(\d+)/', $url, $a);
+
+				if(isset($a) && $a != null){
+					$url = "http://vimeo.com/api/v2/video/" . $a[0] . ".json";
+
+					$json = file_get_contents($url);
+
+					$json = json_decode($json);
+
+					return $json[0]->thumbnail_large;
+				}
+
+			}
+			
+			return null;
+			
+		}
+	}
 	
-	
+
+	function array_strpos($haystack, $needles)
+	{
+	    foreach($needles as $needle)
+	        if(strpos($haystack, $needle) !== false) return true;
+	    return false;
+	}
 ?>

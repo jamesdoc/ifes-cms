@@ -34,6 +34,17 @@
 							<input type="text" class="form-control" id="txt_title" name="txt_title" placeholder="" value="<?=$resource->title?>" />
 						</div>
 						<? endif; ?>
+
+						<? if(in_array('video_link', $modules['content'])): ?>
+						<label for="txt_link">Video link</label>
+						<div class="input-group">
+							<input type="text" class="form-control" id="txt_link" name="txt_link" placeholder="http://..." value="<?=$resource->link?>">
+							<span class="input-group-addon">
+								<span class="glyphicon glyphicon-globe"></span>
+							</span>
+						</div>
+						<p class="help-block">Please use Vimeo or YouTube links only. Let <a href="http://jamesdoc.com">James</a> know if you want more.</p>
+						<? endif; ?>
 						
 						<? if(in_array('content', $modules['content'])): ?>
 						<div class="form-group">
