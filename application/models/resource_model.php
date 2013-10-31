@@ -48,6 +48,9 @@ class Resource_model extends CI_Model
 	{	
 		$this->db->where('resource_id', $resource_id);
 		$this->db->delete('resource');
+
+		$this->db->where('resource_id', $resource_id);
+		$this->db->delete('resource_translation');
 	}
 
 	function delete_translation($resource_id, $lang_code)
