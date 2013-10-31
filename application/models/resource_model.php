@@ -127,7 +127,7 @@ class Resource_model extends CI_Model
 	}
 
 
-	function select_basics($type, $limit = 20, $offset = 0)
+	function select_basics($type, $limit = 20, $offset = 0, $drafts = FALSE)
 	{
 
 		if ($offset < 0)
@@ -135,7 +135,7 @@ class Resource_model extends CI_Model
 			$offset = 0;
 		}
 
-		$this->db->select('resource.resource_id, IFNULL(MAX(IF (lang_code = "en" AND resource_translation.status = "1", title, NULL)),title) AS title, IFNULL(MAX(IF (lang_code = "en" AND resource_translation.status = "1", body, NULL)),body) AS body, resource.status, datetime, type, knownas',false);
+		$this->db->select('resource.resource_id, IFNULL(MAX(IF (lang_code = "en" AND resource_translation.status = "1", title, NULL)),title) AS title, IFNULL(MAX(IF (lang_code = "en" AND resource_translation.status = "1", body, NULL)),body) AS body, resource.status, published_dt, type, knownas',false);
 
 		$this->db->from('resource');
 		$this->db->join('resource_translation','resource.resource_id = resource_translation.resource_id');
@@ -144,7 +144,11 @@ class Resource_model extends CI_Model
 		$this->db->group_by('resource.resource_id');
 
 		$this->db->where('type',$type);
-		$this->db->where('resource.status >',0);
+
+		if ($drafts == FALSE)
+		{
+			$this->db->where('resource.status >',0);
+		}
 
 		$this->db->order_by('published_dt', 'DESC');
 

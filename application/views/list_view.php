@@ -22,10 +22,26 @@
       <? if(count($records) > 0): foreach($records as $record): ?>
         <tr>
 
-          <td><a href="<?=site_url($type . '/edit/' . $record->resource_id)?>" class="btn btn-primary btn-sm">Edit</a></td>
-          <td><?=$record->title?></td>
-          <td><?=$record->knownas?></td>
-          <td><?=word_limiter(strip_tags($record->body), 40)?></td>
+          <td>
+            <a href="<?=site_url($type . '/edit/' . $record->resource_id)?>" class="btn btn-primary btn-sm">Edit</a>
+          </td>
+
+          <td>
+            <? if($record->status == 0): ?>
+              <span class="label label-warning">Draft</span>
+            <? elseif (date('ymdHis', strtotime($record->published_dt)) > date('ymdHis') ): ?>
+              <span class="label label-info">Scheduled</span><br/ >
+            <? endif ?>
+            <?=$record->title?>
+          </td>
+
+          <td>
+            <?=$record->knownas?>
+          </td>
+
+          <td>
+            <?=word_limiter(strip_tags($record->body), 40)?>
+          </td>
           
         </tr>
       <? endforeach; endif; ?>
@@ -64,3 +80,8 @@
   </div>
 
 </div>
+
+<hr />
+
+<pre>
+<?print_r($record)?>

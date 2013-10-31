@@ -178,7 +178,7 @@ class Resource extends MY_Controller {
 
 		$page = $this->input->get('page', TRUE);
 
-		$data['records'] = $this->resource_model->select_basics($type, $pagination_config['per_page'], ($page-1)*$pagination_config['per_page']);
+		$data['records'] = $this->resource_model->select_basics($type, $pagination_config['per_page'], ($page-1)*$pagination_config['per_page'], TRUE);
 
 		$this->load->view('container', $data);
 
