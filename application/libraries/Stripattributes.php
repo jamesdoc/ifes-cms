@@ -82,8 +82,11 @@ class Stripattributes
 			else
 				$node['attributes'] = null;
 			
-			$node['attributes'] = $atts;
-			unset( $atts );
+			if(isset($atts) && $atts != null)
+			{
+				$node['attributes'] = $atts;
+				unset( $atts );
+			}
 		}
 		
 		return $nodes;
