@@ -25,9 +25,18 @@ class Resource_model extends CI_Model
 
 		$vanity_url = toUrlSlug($title);
 
+		$i = 0;
+
 		while($this->select_vanity_url_count($vanity_url) != 0)
 		{
+			if($i == 0)
+			{
+				$vanity_url .= '-u';
+			}
+
 			$vanity_url .= random_string('nozero', 1);
+
+			$i++;
 		}
 
 		return $vanity_url;
