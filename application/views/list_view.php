@@ -8,6 +8,7 @@
 
     <div class="col-md-8">
       
+      <div class="table-responsive">
       <table class="table table-striped">
           <thead>
             <tr>
@@ -47,6 +48,7 @@
       <? endforeach; endif; ?>
 
        </table>
+       </div>
 
        <?=$this->pagination->create_links();?>
 
@@ -75,6 +77,7 @@
         <p><a href="<?=site_url('event')?>">Events</a>
         <p><a href="<?=site_url('profile')?>">Profiles</a>
         <p><a href="<?=site_url('video')?>">Video</a>
+        <p><a href="<?=site_url('comment')?>">Comment moderation</a>
       </div>
     </div>
 

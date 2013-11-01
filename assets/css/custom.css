@@ -48,3 +48,7 @@ footer
 		padding-left: 120px;
 	}
 
+.jumbotron.robot_red
+{
+	background-image: url('../images/robot_red_top.png');
+}

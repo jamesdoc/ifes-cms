@@ -1,5 +1,9 @@
 $(document).ready(function() {
 	
+	$(document).on("click", ".modal-close", function() {
+		$('.modal').remove();
+	});
+
 	// Are we on the edit form?
 	if ($('#edit_form').length)
 	{
@@ -45,10 +49,20 @@ $(document).ready(function() {
 			$(modal).insertAfter(this).fadeIn();
 		});
 
-		$(document).on("click", ".modal-close", function() {
-			$('.modal').remove();
+	} // End 'are we on the edit form?' check
+
+
+	if ($('#comment_form').length)
+	{
+
+		$('.btn-delete-comment').click(function(e){
+			e.preventDefault();
+
+			var modal = '<form method="post" class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close modal-close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title">Are you sure?</h4></div><div class="modal-body"><p>This action will delete the comment, and it will be no more.</p><p>Please confirm.</p></div> <div class="modal-footer"><button type="button" class="btn btn-default modal-close" data-dismiss="modal">Close</button><button type="submit" class="btn btn-danger" name="btn_confirm_comment_delete" value="TRUE">Delete comment</button></div></div></div></form>';
+
+			$(modal).insertAfter(this).fadeIn();
 		});
 
-	} // End 'are we on the edit form?'' check
+	} // End 'are we on the comment form?' check
 
 });
