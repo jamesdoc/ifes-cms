@@ -20,14 +20,14 @@ class Resource_model extends CI_Model
 		return $this->db->count_all_results('resource');
 	}
 
-	function create_vanity_url($title)
+	function create_vanity_url($title, $resource_translation_id = null)
 	{
 
 		$vanity_url = toUrlSlug($title);
 
 		$i = 0;
 
-		while($this->select_vanity_url_count($vanity_url) != 0)
+		while($this->select_vanity_url_count($vanity_url, $resource_translation_id) != 0)
 		{
 			if($i == 0)
 			{
@@ -262,8 +262,13 @@ class Resource_model extends CI_Model
 		}
 	}
 
-	function select_vanity_url_count($vanity_url)
+	function select_vanity_url_count($vanity_url, $resource_translation_id = null)
 	{
+		if ($resource_translation_id != null)
+		{
+			$this->db->where('resource_translation_id !=', $resource_translation_id);
+		}
+
 		$this->db->where('vanity_url', $vanity_url);
 		return $this->db->count_all_results('resource_translation');
 	}
@@ -390,7 +395,7 @@ class Resource_model extends CI_Model
 		// Set vanity_url
 		if ($translation['title'] != null AND ($current->status != 1 OR $current->vanity_url == '' OR $current->translation_status != 1))
 		{
-			$translation['vanity_url'] = $this->create_vanity_url($translation['title']);
+			$translation['vanity_url'] = $this->create_vanity_url($translation['title'], $current->resource_translation_id);
 		}
 
 		// Do some work if video link around
