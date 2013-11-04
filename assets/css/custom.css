@@ -48,7 +48,27 @@ footer
 		padding-left: 120px;
 	}
 
+.jumbotron.robot_blue
+{
+	background-image: url('../images/robot_blue_top.png');
+}
+
+.jumbotron.robot_green
+{
+	background-image: url('../images/robot_green_top.png');
+}
+
+.jumbotron.robot_pink
+{
+	background-image: url('../images/robot_pink_top.png');
+}
+
 .jumbotron.robot_red
 {
 	background-image: url('../images/robot_red_top.png');
+}
+
+.jumbotron.robot_yellow
+{
+	background-image: url('../images/robot_yellow_top.png');
 }
