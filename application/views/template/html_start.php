@@ -44,11 +44,26 @@
       <? if($this->session->userdata('member_id') != null): ?>
       <ul class="nav navbar-nav">
         <li><a href="<?=site_url()?>">Home</a></li>
+        
+        <? if($this->session->userdata('access') == '5' || in_array('blog', $this->session->userdata('module'))): ?>
         <li><a href="<?=site_url('blog')?>">Blog</a></li>
+        <? endif ?>
+
+		<? if($this->session->userdata('access') == '5' || in_array('prayer', $this->session->userdata('module'))): ?>
         <li><a href="<?=site_url('prayer')?>">Prayer</a></li>
+        <? endif ?>
+
+		<? if($this->session->userdata('access') == '5' || in_array('event', $this->session->userdata('module'))): ?>
         <li><a href="<?=site_url('event')?>">Events</a></li>
+        <? endif ?>
+
+		<? if($this->session->userdata('access') == '5' || in_array('profile', $this->session->userdata('module'))): ?>
         <li><a href="<?=site_url('profile')?>">Profiles</a></li>
+        <? endif ?>
+
+		<? if($this->session->userdata('access') == '5' || in_array('video', $this->session->userdata('module'))): ?>
         <li><a href="<?=site_url('video')?>">Video</a></li>
+        <? endif ?>
       </ul>
       <?endif;?>
 

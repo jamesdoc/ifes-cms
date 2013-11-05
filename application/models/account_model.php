@@ -6,15 +6,14 @@ class Account_model extends CI_Model
 	function check_login($username, $password)
 	{
 		
-		$this->db->select('individual.member_id, username, password, email_primary, knownas');
+		$this->db->select('individual.member_id, username, password, email_primary, knownas, permission_level');
 
 		$this->db->from('individual_login');
 		$this->db->join('individual', 'individual_login.member_id = individual.member_id');
 		$this->db->join('member_contact_details', 'individual_login.member_id = member_contact_details.member_id');
 		$this->db->join('gateway', 'individual_login.member_id = gateway.member_id');
 
-		$this->db->where('gateway.module_id', '1');
-		$this->db->where('gateway.permission_level', '5');
+		$this->db->where('gateway.module_id', 'cms');
 		
 		if(strstr($username,'@'))
 		{
@@ -40,14 +39,22 @@ class Account_model extends CI_Model
 			return false;
 		}
 
+		$permissions = json_decode($auth->permission_level);
+
 		$data = array
 		(
 			'logged_in'	=> '1',
 			'username'	=> $auth->username,
 			'knownas'	=> $auth->knownas,
 			'member_id'	=> $auth->member_id,
-			'gravatar'	=> md5($auth->email_primary)
+			'gravatar'	=> md5($auth->email_primary),
+			'access'	=> $permissions->access
 		);
+
+		if($permissions->access != 5)
+		{
+			$data['module'] = $permissions->module;
+		}
 
 		$this->session->set_userdata($data);
 

@@ -14,7 +14,7 @@ class Resource extends MY_Controller {
 	public function edit($resource_id = null, $type = null)
 	{
 
-		if ($resource_id == null)
+		if($type == null || ($this->session->userdata('access') != '5' && !in_array($type, $this->session->userdata('module'))))
 		{
 			redirect();
 		}
@@ -36,8 +36,6 @@ class Resource extends MY_Controller {
 				}
 			}
 		}
-
-
 
 		$this->load->model(array('account_model','language_model','resource_model'));
 
@@ -61,7 +59,6 @@ class Resource extends MY_Controller {
 		$data['resource_tags'] = $this->resource_model->select_resource_tags($resource_id);
 		$data['languages'] = $this->language_model->select_languages();
 		$data['post_as'] = $this->account_model->select_user_post_as($this->session->userdata('member_id'));
-
 
 		$data['javascript'] = array('bootstrap-datepicker','bootstrap-tagsinput','typeahead.min');
 		$data['css'] = array('datepicker','bootstrap-tagsinput');
@@ -124,8 +121,9 @@ class Resource extends MY_Controller {
 	
 	public function create($type = null)
 	{
-		
-		if($type == null)
+
+
+		if($type == null || ($this->session->userdata('access') != '5' && !in_array($type, $this->session->userdata('module'))))
 		{
 			redirect();
 		}
@@ -162,6 +160,11 @@ class Resource extends MY_Controller {
 	public function records($type = 'blog')
 	{
 		
+		if($this->session->userdata('access') != '5' && !in_array($type, $this->session->userdata('module')))
+		{
+			redirect();
+		}
+
 		$this->load->model(array('resource_model'));
 
 		$this->load->library(array('pagination'));
