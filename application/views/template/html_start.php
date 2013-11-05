@@ -51,9 +51,20 @@
         <li><a href="<?=site_url('video')?>">Video</a></li>
       </ul>
       <?endif;?>
+
+      <? if($this->session->userdata('member_id') != null): ?>
+      <form class="navbar-form navbar-right" method="get" action="<?=site_url('search')?>">
+        <div class="form-group">
+          <input type="text" placeholder="Query" class="form-control" name="for">
+        </div>
+        <button type="submit" class="btn btn-primary">Search</button>
+      </form>
+      <? else: ?>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="http://ifesworld.org" target="_blank">ifesworld.org &raquo;</a></li>
+        <li><a href="http://ifesworld.org" target="_blank">ifesworld.org »</a></li>
       </ul>
+      <?endif;?>
+    
 
     </div><!--/.nav-collapse -->
 

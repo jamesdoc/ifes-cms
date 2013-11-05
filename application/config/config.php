@@ -5,6 +5,8 @@ $config['is_local'] = TRUE;
 $config['upload_path'] = 'assets/uploads/';
 $config['media_server'] = 'http://cms.ifesworld.dev/assets/uploads/';
 
+$config['api_endpoint'] = "http://data.ifesworld.org/";
+
 /*
 $config['is_local'] = FALSE;
 $config['upload_path'] = '../../media/httpdocs/image/blog/';
