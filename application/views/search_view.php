@@ -1,6 +1,6 @@
 <div class="jumbotron robot_blue">
 	<div class="container">
-		<h1>Search: <?=ucfirst($this->input->post('txt_search'))?></h1>
+		<h1>Search: <?=ucfirst($this->input->get('for'))?></h1>
 	</div>
 </div>
 
@@ -20,7 +20,7 @@
             </tr>
           </thead>
 
-      <? if(count($results) > 0): foreach($results as $record): ?>
+      <? if(count($results) > 0 && !isset($results->error)): foreach($results as $record): ?>
         <tr>
 
           <td>
@@ -40,7 +40,15 @@
           </td>
           
         </tr>
-      <? endforeach; endif; ?>
+      <? endforeach; elseif (isset($results->error)): ?>
+
+      <tr>
+        <td colspan="4">
+          <?=$results->error?>
+        </td>
+      </tr>
+
+      <? endif; ?>
 
        </table>
        </div>
