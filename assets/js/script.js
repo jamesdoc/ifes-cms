@@ -18,12 +18,16 @@ $(document).ready(function() {
 		
 		$('.input-append.date').datepicker({weekStart: 1, orientation: "top auto", autoclose: true, calendarWeeks: true});
 
-		$('#tags').tagsinput('input').typeahead({
-			prefetch: window.location.protocol + '//' + document.location.hostname + '/resource/tags'
-		}).bind('typeahead:selected', $.proxy(function (obj, datum) { 
-			this.tagsinput('add', datum.value);
-			this.tagsinput('input').typeahead('setQuery', '');
-		}, $('#tags')));
+		// If we have tags on the page...
+		if ($('#tags').length)
+		{
+			$('#tags').tagsinput('input').typeahead({
+				prefetch: window.location.protocol + '//' + document.location.hostname + '/resource/tags'
+			}).bind('typeahead:selected', $.proxy(function (obj, datum) { 
+				this.tagsinput('add', datum.value);
+				this.tagsinput('input').typeahead('setQuery', '');
+			}, $('#tags')));
+		}
 
 		$('.btn_translation_delete').click(function(e){
 			e.preventDefault();
