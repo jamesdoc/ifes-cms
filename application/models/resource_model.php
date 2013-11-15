@@ -3,6 +3,9 @@
 class Resource_model extends CI_Model
 {
 
+	/*	
+	 *	
+	 */
 	function check_type_date_conflict($date, $type = null, $resource_id = null)
 	{
 		if ($type != null)
@@ -20,6 +23,10 @@ class Resource_model extends CI_Model
 		return $this->db->count_all_results('resource');
 	}
 
+	/*
+	 *	Used to create a unique vanity URL for resources
+	 *	Takes in resource title and will spit out a unique-vanity-url
+	 */
 	function create_vanity_url($title, $resource_translation_id = null)
 	{
 
@@ -43,7 +50,10 @@ class Resource_model extends CI_Model
 
 	}
 
-
+	/*
+	 * Deletes a whole resource and related translations and files
+	 * Use with caution
+	 */
 	function delete_resource($resource_id)
 	{	
 		$this->db->where('resource_id', $resource_id);
@@ -51,8 +61,15 @@ class Resource_model extends CI_Model
 
 		$this->db->where('resource_id', $resource_id);
 		$this->db->delete('resource_translation');
+
+		$this->db->where('resource_id', $resource_id);
+		$this->db->delete('resource_file');
 	}
 
+	/*
+	 * Deletes a specific translation within a resource
+	 * If it is the last translation in the resource, it deletes the resource as well
+	 */
 	function delete_translation($resource_id, $lang_code)
 	{
 
@@ -71,9 +88,15 @@ class Resource_model extends CI_Model
 		
 	}
 	
+	/*
+	 * Inserts an empty resource ready for editing
+	 * Auto assigns a type
+	 */
 	function insert_resource($type)
 	{
 		
+		// Create basic resource fields
+
 		$this->db->set('member_id', $this->session->userdata('member_id'));
 		$this->db->set('type', $type);
 		$this->db->set('published_dt', date('Y-m-d H:i:s'));
@@ -88,6 +111,8 @@ class Resource_model extends CI_Model
 		$this->db->insert('resource'); 
 		
 		$resource_id = $this->db->insert_id();
+
+		// Set up new resource with a new translation
 
 		// If it is a profile then we are going to give it a name from the get go.
 		if ($type == 'profile')
@@ -112,10 +137,14 @@ class Resource_model extends CI_Model
 			$this->db->insert('tag_link');
 		}
 		
+		// And away we go to the edit form...
 		redirect($type . '/edit/' . $resource_id);
 		
 	}
 	
+	/*
+	 * Add in a new translation for a resource
+	 */
 	function insert_translation($resource_id, $lang_code)
 	{
 
@@ -138,7 +167,11 @@ class Resource_model extends CI_Model
 
 	}
 
-
+	/*
+	 * Get a summary of resources by type
+	 * Selects ID, title, body, status, published_dt, type and author
+	 * Mostly used for the resource lists
+	 */
 	function select_basics($type, $limit = 20, $offset = 0, $drafts = FALSE)
 	{
 
@@ -180,6 +213,10 @@ class Resource_model extends CI_Model
 		}
 	}
 
+	/*
+	 * Get total number of resources with type filter
+	 * Handy for pagination
+	 */
 	function select_resource_count($type = null)
 	{
 
@@ -192,6 +229,9 @@ class Resource_model extends CI_Model
 
 	}
 
+	/*
+	 * Get all details of resource and translation for handy dandy editing
+	 */
 	function select_resource_for_edit($resource_id, $lang_code = null)
 	{
 
@@ -219,6 +259,9 @@ class Resource_model extends CI_Model
 
 	}
 
+	/*
+	 * Returns a list of tags assocated with a resource
+	 */
 	function select_resource_tags($resource_id, $lang_code = 'en')
 	{
 		
@@ -262,6 +305,9 @@ class Resource_model extends CI_Model
 		}
 	}
 
+	/*
+	 * Check if a vanity_url exists within the database
+	 */
 	function select_vanity_url_count($vanity_url, $resource_translation_id = null)
 	{
 		if ($resource_translation_id != null)
@@ -273,7 +319,9 @@ class Resource_model extends CI_Model
 		return $this->db->count_all_results('resource_translation');
 	}
 
-
+	/*
+	 * Save changes to resource
+	 */
 	function update_resource($resource_id)
 	{
 
@@ -405,6 +453,10 @@ class Resource_model extends CI_Model
 			if(array_strpos($translation['link'], array('youtube','vimeo')) !== false)
 			{
 				$translation['thumbnail'] = get_video_thumbnail($translation['link']);
+			}
+			else if(strpos($translation['link'], 'amazonaws') !== false)
+			{
+				$translation['thumbnail'] = null;
 			// Otherwise ditch the link
 			} else {
 				$translation['link'] = null;
@@ -436,7 +488,10 @@ class Resource_model extends CI_Model
 
 	}
 
-
+	/*
+	 * Changes the status code of a resource
+	 * Useful for 'deleting' or publishing a resource
+	 */
 	function update_resource_status($resource_id, $status_code)
 	{
 		$this->db->set('status', $status_code);
