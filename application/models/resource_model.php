@@ -102,6 +102,7 @@ class Resource_model extends CI_Model
 		$this->db->set('published_dt', date('Y-m-d H:i:s'));
 		$this->db->set('status', 0);
 		$this->db->set('discussion', 1);
+		$this->db->set('featured', 1);
 		
 		if($type == 'prayer')
 		{
