@@ -65,7 +65,7 @@
 								<span class="glyphicon glyphicon-globe"></span>
 							</span>
 						</div>
-						<p class="help-block"><button type="submit" class="btn btn-default btn-xs btn-warning" name="btn_add_audio" value="en">Add another row</button></p>
+						<p class="help-block"><button type="submit" class="btn btn-default btn-xs btn-warning" name="btn_add_link" id="btn_add_link">Add another row</button></p>
 						<p class="help_block">For video please use Vimeo or YouTube links only, audio should have both Mp3 and OGG files provided.</p>
 						<? endif; ?>
 

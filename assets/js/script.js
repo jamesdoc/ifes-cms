@@ -53,6 +53,16 @@ $(document).ready(function() {
 			$(modal).insertAfter(this).fadeIn();
 		});
 
+		$('#btn_add_link').click(function(e){
+			e.preventDefault();
+
+			var link_input = $(this).parent().prev();
+
+			link_input.clone().prependTo($(this).parent());
+
+
+		});
+
 	} // End 'are we on the edit form?' check
 
 
