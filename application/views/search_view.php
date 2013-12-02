@@ -24,7 +24,7 @@
         <tr>
 
           <td>
-            <a href="<?=site_url('resource/edit/' . $record->resource_id)?>" class="btn btn-primary btn-sm">Edit</a>
+            <a href="<?=site_url($record->type . '/edit/' . $record->resource_id)?>" class="btn btn-primary btn-sm">Edit</a>
           </td>
 
           <td>
