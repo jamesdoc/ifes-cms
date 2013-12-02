@@ -64,6 +64,10 @@
 		<? if($this->session->userdata('access') == '5' || in_array('video', $this->session->userdata('module'))): ?>
         <li><a href="<?=site_url('video')?>">Video</a></li>
         <? endif ?>
+
+    <? if($this->session->userdata('access') == '5' || in_array('audio', $this->session->userdata('module'))): ?>
+        <li><a href="<?=site_url('audio')?>">Audio</a></li>
+        <? endif ?>
       </ul>
       <?endif;?>
 

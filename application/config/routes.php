@@ -38,7 +38,7 @@
 |
 */
 
-$resource_types = "blog|prayer|event|profile|video";
+$resource_types = "blog|prayer|event|profile|video|audio";
 
 $route['default_controller'] = "welcome";
 $route['404_override'] = '';

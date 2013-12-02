@@ -101,7 +101,12 @@ class Resource extends MY_Controller {
 				$this->ckConfig['toolbar'] = array(array('Link','Unlink'),array('Bold', 'Italic','Underline', 'Strike'),array('NumberedList','BulletedList','Blockquote'),array('Styles'),array('Source'));
 				break;
 			case 'video':
-				$data['modules'] = array('content' => array('title','content','video_link','short_description'),'publish' => TRUE,'datetime' => array('published_dt'),'translation' => TRUE,'additionals' => array('featured','comments'), 'tag' => TRUE);
+				$data['modules'] = array('content' => array('title','content','media_link','short_description'),'publish' => TRUE,'datetime' => array('published_dt'),'translation' => TRUE,'additionals' => array('featured','comments'), 'tag' => TRUE);
+				$this->ckConfig['forcePasteAsPlainText'] = true;
+				$this->ckConfig['height'] = '150px';
+				break;
+			case 'audio':
+				$data['modules'] = array('content' => array('title','content','media_link','short_description'),'publish' => TRUE,'datetime' => array('published_dt'),'translation' => TRUE,'additionals' => array('featured','comments'), 'tag' => TRUE);
 				$this->ckConfig['forcePasteAsPlainText'] = true;
 				$this->ckConfig['height'] = '150px';
 				break;

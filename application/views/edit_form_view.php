@@ -35,16 +35,41 @@
 						</div>
 						<? endif; ?>
 
-						<? if(in_array('video_link', $modules['content'])): ?>
-						<label for="txt_link">Video link</label>
+
+
+						<? if(in_array('media_link', $modules['content'])): ?>
+						<label for="txt_link">Links to files</label>
+						<? $link = json_decode($resource->link); ?>
+
+
+						<? if(is_array($link)): foreach($link as $lnk): ?>
+
 						<div class="input-group">
-							<input type="text" class="form-control" id="txt_link" name="txt_link" placeholder="http://..." value="<?=$resource->link?>">
+							<input type="text" class="form-control" id="txt_link" name="txt_link[]" placeholder="http://..." value="<?=$lnk->resource_path?>">
 							<span class="input-group-addon">
 								<span class="glyphicon glyphicon-globe"></span>
 							</span>
 						</div>
-						<p class="help-block">Please use Vimeo or YouTube links only. Let <a href="http://jamesdoc.com">James</a> know if you want more.</p>
+						<? endforeach; elseif (is_object($link)): ?>
+						<div class="input-group">
+							<input type="text" class="form-control" id="txt_link" name="txt_link[]" placeholder="http://..." value="<?=$link->resource_path?>">
+							<span class="input-group-addon">
+								<span class="glyphicon glyphicon-globe"></span>
+							</span>
+						</div>
 						<? endif; ?>
+
+						<div class="input-group">
+							<input type="text" class="form-control" id="txt_link" name="txt_link[]" placeholder="http://...">
+							<span class="input-group-addon">
+								<span class="glyphicon glyphicon-globe"></span>
+							</span>
+						</div>
+						<p class="help-block"><button type="submit" class="btn btn-default btn-xs btn-warning" name="btn_add_audio" value="en">Add another row</button></p>
+						<p class="help_block">For video please use Vimeo or YouTube links only, audio should have both Mp3 and OGG files provided.</p>
+						<? endif; ?>
+
+
 						
 						<? if(in_array('content', $modules['content'])): ?>
 						<div class="form-group">
@@ -53,6 +78,8 @@
 							<?=display_ckeditor($ckeditor);?>
 						</div>
 						<? endif; ?>
+
+
 
 						<? if(in_array('image', $modules['content'])): ?>
 						<div class="form-group">

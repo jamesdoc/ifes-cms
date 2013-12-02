@@ -58,6 +58,15 @@
     </div>
 	<? endif; ?>
 
+  <? if($this->session->userdata('access') == '5' || in_array('audio', $this->session->userdata('module'))): ?>
+    <div class="col-lg-4">
+      <h2>Audio</h2>
+      <p><a class="btn btn-block btn-info" href="audio/new">New Audio Recording &raquo;</a></p>
+      <p><a class="btn btn-default btn-block" href="audio">View / edit / delete &raquo;</a></p>
+      <p>Add or amend audio content in the media section</p>
+    </div>
+  <? endif; ?>
+
   </div>
 
 </div>

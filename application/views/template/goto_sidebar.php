@@ -28,6 +28,10 @@
 		<p><a href="<?=site_url('video')?>">Video</a>
 		<? endif ?>
 
+		<? if($this->session->userdata('access') == '5' || in_array('audio', $this->session->userdata('module'))): ?>
+		<p><a href="<?=site_url('audio')?>">Audio</a>
+		<? endif ?>
+
 
 		<? if($this->session->userdata('access') == '5' || in_array('comment', $this->session->userdata('module'))): ?>
 		<hr />

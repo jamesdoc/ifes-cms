@@ -418,7 +418,6 @@ class Resource_model extends CI_Model
 		(
 			'title'			=> strip_tags(trim($this->input->post('txt_title'))),
 			'body'			=> $this->input->post('txt_body'),
-			'link'			=> prep_url(trim($this->input->post('txt_link'))),
 			'desc_short'	=> strip_tags(trim($this->input->post('txt_short_description'))),
 			'status'		=> 1
 		);
@@ -447,26 +446,48 @@ class Resource_model extends CI_Model
 			$translation['vanity_url'] = $this->create_vanity_url($translation['title'], $current->resource_translation_id);
 		}
 
-		// Do some work if video link around
-		if ($current->type == 'video')
+		// If the resource is not media related then we can expect just one link field... otherwise it gets a bit complicated...
+		if($current->type != 'audio' && $current->type != 'video'){
+			$translation['link'] = prep_url(trim($this->input->post('txt_link')));
+		}
+		else
 		{
-			// If there is a vimeo or youtube link go get a thumbnail
-			if(array_strpos($translation['link'], array('youtube','vimeo')) !== false)
+
+			
+			$i = 0; $json = array();
+			foreach($this->input->post('txt_link') as $link)
 			{
-				$translation['thumbnail'] = get_video_thumbnail($translation['link']);
+				$link = trim($link);
+
+				if($link != null)
+				{
+
+					$url = parse_url(trim($link), PHP_URL_PATH);
+					$url = explode('/', $link);
+					$url = end($url);
+
+					$json[$i]['resource_path'] 		= $link;
+					$json[$i]['resource_filetype'] 	= substr( $url, strrpos( $url, '.' )+1 );
+					$json[$i]['resource_filename'] 	= substr($url,0,-4);
+
+					// Do some more work if video link around to extract thumbnail
+					if ($current->type == 'video' && array_strpos($link, array('youtube','vimeo')) !== false)
+					{
+						$translation['thumbnail'] = get_video_thumbnail($link);
+					}
+
+					$i++;
+
+				}
 			}
-			else if(strpos($translation['link'], 'amazonaws') !== false)
-			{
-				$translation['thumbnail'] = null;
-			// Otherwise ditch the link
-			} else {
-				$translation['link'] = null;
-			}
+			
+			$translation['link'] = json_encode($json);
+
 		}
 
 		$this->db->where('resource_id', $resource_id);
 		$this->db->where('lang_code', $this->input->post('txt_lang_code'));
-
+		
 		$this->db->update('resource_translation', $translation);
 
 		//------
