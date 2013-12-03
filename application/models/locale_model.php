@@ -22,6 +22,8 @@ class Locale_model extends CI_Model
 			$this->db->like('locale_code', 'c', 'after'); 
 		}
 
+		$this->db->order_by('locale_en');
+
 		$query = $this->db->get();
 
 		if($query->num_rows()>0)
@@ -51,7 +53,7 @@ class Locale_model extends CI_Model
 			)
 			AND ( locale.locale_root IS NOT NULL 
 				OR locale.locale_code LIKE 'r%')
-			ORDER BY locale.locale_root, locale.locale_code
+			ORDER BY locale.locale_root, locale.locale_en
 		";
 
 		$query = $this->db->query($query);

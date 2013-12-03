@@ -32,10 +32,14 @@
 		<p><a href="<?=site_url('audio')?>">Audio</a>
 		<? endif ?>
 
+		<hr />
 
 		<? if($this->session->userdata('access') == '5' || in_array('comment', $this->session->userdata('module'))): ?>
-		<hr />
 		<p><a href="<?=site_url('comment')?>">Comment moderation</a>
+		<? endif ?>
+
+		<? if($this->session->userdata('access') == '5' || in_array('bloggers', $this->session->userdata('module'))): ?>
+		<p><a href="<?=site_url('bloggers')?>">IFES bloggers</a>
 		<? endif ?>
 
 	</div>

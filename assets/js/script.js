@@ -79,4 +79,30 @@ $(document).ready(function() {
 
 	} // End 'are we on the comment form?' check
 
+
+	if ($('#edit_blogger_form').length)
+	{
+		$('#txt_bio').keydown(function(event){
+			if(event.keyCode==13){return false;}
+
+			var textarea = $(this);
+			var i = parseInt(textarea.val().length);
+
+			if(i==160)		{ return false;}
+			else if(i>=159)	{ textarea.value = textarea.value.slice(0, -1);}
+			else if(i>=155)	{ textarea.css('color','#f00');}
+			else if(i>=150)	{ textarea.css('color','#ef9b0f');}
+			else if(i<150)	{ textarea.css('color','#000');}
+			
+		});
+
+		$('.btn-remove-blogger').click(function(e){
+			e.preventDefault();
+
+			var modal = '<form method="post" class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close modal-close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title">Are you sure?</h4></div><div class="modal-body"><p>This action will remove the blogger from the CMS, however their blog posts will remain intacted and credited.</p><p>Please confirm this action.</p></div> <div class="modal-footer"><button type="button" class="btn btn-default modal-close" data-dismiss="modal">Close</button><button type="submit" class="btn btn-danger" name="btn_confirm_blogger_removal" value="TRUE">Confirm removal</button></div></div></div></form>';
+
+			$(modal).insertAfter(this).fadeIn();
+		});
+	}
+
 });
