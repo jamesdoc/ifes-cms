@@ -20,6 +20,33 @@ class Bloggers extends MY_Controller
 	}
 
 	
+	function create()
+	{
+		if($this->input->post())
+		{
+			$this->load->model(array('blogger_model'));
+
+			$member_id = $this->blogger_model->check_blogger($this->input->post('txt_email'));
+
+			if($member_id != null)
+			{
+				$this->blogger_model->insert_blogger_tag($member_id);
+			}
+			else
+			{
+				$member_id = $this->blogger_model->insert_blogger($this->input->post('txt_email'));
+			}
+
+			redirect('bloggers/view/' . $member_id);
+		}
+
+		$data['view'] = 'blogger_new';
+		$data['title'] = 'IFES CMS: Add new blogger';
+
+		$this->load->view('container', $data);
+
+	}
+
 
 	function view($member_id = null)
 	{
@@ -53,8 +80,6 @@ class Bloggers extends MY_Controller
 	}
 
 	function _input_handler($member_id){
-
-
 
 		if($this->input->post('txt_knownas') != null)
 		{

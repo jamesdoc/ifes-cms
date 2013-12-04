@@ -80,6 +80,30 @@ $(document).ready(function() {
 	} // End 'are we on the comment form?' check
 
 
+	if ($('#blogger_new').length)
+	{
+
+		$('.btn-add-blogger').click(function(e){
+
+			e.preventDefault();
+
+			var email = $('#txt_email');
+
+			if(isValidEmailAddress(email.val()) == false)
+			{
+				email.css('color','red');
+			}
+			else
+			{
+				email.css('color','');
+				$('form').submit();
+			}
+
+			
+		});
+	}
+
+
 	if ($('#edit_blogger_form').length)
 	{
 		$('#txt_bio').keydown(function(event){
@@ -106,3 +130,13 @@ $(document).ready(function() {
 	}
 
 });
+
+
+
+
+
+
+function isValidEmailAddress(emailAddress) {
+	var pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
+	return pattern.test(emailAddress);
+}

@@ -3,6 +3,43 @@
 class Blogger_model extends CI_Model
 {
 
+	function insert_blogger($email_address)
+	{
+
+		$member['member_type_id'] = '2';
+		$this->db->insert('member', $member);
+		$member_id = $this->db->insert_id();
+
+		$parts = explode('@', $email_address);
+
+		$individual['knownas'] = $parts[0];
+		$individual_login['username'] = $parts[0];
+
+		$individual['member_id'] = $member_id;
+		$individual_login['member_id'] = $member_id;
+		$member_contact_details['member_id'] = $member_id;
+
+		$member_contact_details['email_primary'] = $email_address;
+
+		$this->db->insert('member_contact_details', $member_contact_details);
+		$this->db->insert('individual', $individual);
+		$this->db->insert('individual_login', $individual_login);
+
+		$this->insert_blogger_tag($member_id);
+
+		return $member_id;
+	}
+
+	function insert_blogger_tag($member_id)
+	{
+
+		$array['page_id'] 	= 'u'.$member_id;
+		$array['tag_id']	= 'aBLOG';
+
+		$this->db->replace('tag_link', $array);
+
+	}
+
 	function select_blogger($member_id = null)
 	{
 
@@ -36,6 +73,20 @@ class Blogger_model extends CI_Model
 			return $data;
 		}
 
+	}
+
+	function check_blogger($email_address)
+	{
+		$this->db->select('member_id');
+		$this->db->from('member_contact_details');
+		$this->db->where('email_primary', $email_address);
+
+		$query = $this->db->get();
+
+		if ($query->num_rows() > 0)
+		{
+			return $query->row()->member_id;
+		}
 	}
 
 

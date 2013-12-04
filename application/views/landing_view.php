@@ -80,7 +80,7 @@
     <? if($this->session->userdata('access') == '5' || in_array('bloggers', $this->session->userdata('module'))): ?>
     <div class="col-lg-4">
       <h2>IFES Bloggers</h2>
-      <?/*<p><a class="btn btn-info btn-block" href="bloggers/new">Add new blogger &raquo;</a></p>*/?>
+      <p><a class="btn btn-info btn-block" href="bloggers/create">Add new blogger &raquo;</a></p>
       <p><a class="btn btn-default btn-block" href="bloggers">View / edit / remove &raquo;</a></p>
       <p>View a list of all the current IFES bloggers</p>
     </div>

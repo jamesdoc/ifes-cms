@@ -52,7 +52,23 @@
 
   <div class="col-md-4">
 
-    <? $this->load->view('template/goto_sidebar') ?>
+    <div class="panel panel-primary">
+
+      <div class="panel-heading">
+
+        <h3 class="panel-title">Create new</h3>
+
+      </div>
+
+      <div class="panel-body">
+
+        <p><a href="<?=site_url('blogger/create')?>" class="btn btn-primary btn-block">Create new blogger</a>
+
+      </div>
+      
+    </div>
+
+    <? $this->load->view('template/goto_sidebar') ?>    
 
   </div>
 

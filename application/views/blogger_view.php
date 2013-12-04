@@ -64,6 +64,22 @@
       </div>
     </div>
 
+    <div class="panel panel-primary">
+
+      <div class="panel-heading">
+
+        <h3 class="panel-title">Back...</h3>
+
+      </div>
+
+      <div class="panel-body">
+
+        <p><a href="<?=site_url('bloggers')?>" class="btn btn-primary btn-block">View a list of all bloggers</a>
+
+      </div>
+      
+    </div>
+
   </div>
 
 </form>
