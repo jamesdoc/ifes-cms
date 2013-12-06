@@ -30,7 +30,7 @@ class Resource_model extends CI_Model
 	function create_vanity_url($title, $resource_translation_id = null)
 	{
 
-		$vanity_url = toUrlSlug($title);
+		$vanity_url = toUrlSlug($title, array('limit'=>50,'transliterate'=>true));
 
 		$i = 0;
 
