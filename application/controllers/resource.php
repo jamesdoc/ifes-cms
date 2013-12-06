@@ -37,7 +37,7 @@ class Resource extends MY_Controller {
 			}
 		}
 
-		$this->load->model(array('account_model','language_model','resource_model'));
+		$this->load->model(array('blogger_model','language_model','resource_model'));
 
 		$data['view'] = 'edit_form';
 		$data['title'] = 'IFES CMS: Edit';
@@ -56,9 +56,9 @@ class Resource extends MY_Controller {
 			redirect($data['resource']->type . '/edit/' . $resource_id);
 		}
 
-		$data['resource_tags'] = $this->resource_model->select_resource_tags($resource_id);
-		$data['languages'] = $this->language_model->select_languages();
-		$data['post_as'] = $this->account_model->select_user_post_as($this->session->userdata('member_id'));
+		$data['resource_tags'] 	= $this->resource_model->select_resource_tags($resource_id);
+		$data['languages'] 		= $this->language_model->select_languages();
+		$data['post_as'] 		= $this->blogger_model->select_blogger();
 
 		$data['javascript'] = array('bootstrap-datepicker','bootstrap-tagsinput','typeahead.min');
 		$data['css'] = array('datepicker','bootstrap-tagsinput');

@@ -265,9 +265,18 @@
 							<div class="form-group">
 
 								<select class="form-control" name="cbo_add_translation">
+									
+									<optgroup label="Core Languages">
+										<option value="en">English</option>
+										<option value="es">Spanish</option>
+										<option value="fr">French</option>
+									</optgroup>
+
+									<optgroup label="All Languages">
 									<? foreach($languages as $language): ?>
 									<option value="<?=$language->lang_code?>"><?=$language->name?></option>
 									<? endforeach; ?>
+									</optgroup>
 								</select>
 
 							</div>
@@ -341,9 +350,9 @@
 								</optgroup>
 
 								<optgroup label="Others">
-								<? foreach($post_as as $member): ?>
+								<? foreach($post_as as $member): if($member->member_id != $this->session->userdata('member_id')): ?>
 								<option value="<?=$member->member_id?>"<? if($member->member_id == $resource->member_id){ echo ' selected';} ?>><?=$member->knownas?></option>
-								<? endforeach; ?>
+								<? endif; endforeach; ?>
 								</optgroup>
 							</select>
 						</div>
