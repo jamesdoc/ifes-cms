@@ -62,7 +62,7 @@
 
       <div class="panel-body">
 
-        <p><a href="<?=site_url('blogger/create')?>" class="btn btn-primary btn-block">Create new blogger</a>
+        <p><a href="<?=site_url('bloggers/create')?>" class="btn btn-primary btn-block">Create new blogger</a>
 
       </div>
       
