@@ -86,13 +86,20 @@
     </div>
   <? endif; ?>
 
-  	<? if($this->session->userdata('access') == '5' || in_array('comment', $this->session->userdata('module'))): ?>
+	<? if($this->session->userdata('access') == '5' || in_array('comment', $this->session->userdata('module'))): ?>
     <div class="col-lg-4">
       <h2>Comments</h2>
       <p><a class="btn btn-info btn-block" href="comment">Moderate comments &raquo;</a></p>
       <p>Approve, hide or delete offending comments</p>
     </div>
-	<? endif; ?>
+  <? endif; ?>
+
+  <? if($this->session->userdata('access') == '5' || in_array('addressbook', $this->session->userdata('module'))): ?>
+    <div class="col-lg-4">
+      <h2>Address book</h2>
+      <p><a class="btn btn-info btn-block" href="addressbook">Update contact details &raquo;</a></p>
+    </div>
+  <? endif; ?>
 
   </div>
 

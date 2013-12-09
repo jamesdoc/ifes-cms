@@ -42,6 +42,10 @@
 		<p><a href="<?=site_url('bloggers')?>">IFES bloggers</a>
 		<? endif ?>
 
+		<? if($this->session->userdata('access') == '5' || in_array('addressbook', $this->session->userdata('module'))): ?>
+		<p><a href="<?=site_url('addressbook')?>">Address book</a>
+		<? endif ?>
+
 	</div>
 	
 </div>
